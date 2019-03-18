@@ -1,0 +1,142 @@
+body{
+    font: 15px/1.5 Arial, Helvetica,sans-serif;
+    padding:0;
+    margin:0;
+}
+
+.container{
+    width:80%;
+    margin:auto;
+    overflow:hidden;
+}
+
+ul{
+    margin:0;
+    padding:0;
+}
+
+header {
+    background: #1faa00;
+    color: #fff;
+}
+
+header a{
+    text-decoration:none;
+    font-size:16px;
+    color: #fff;
+    font-weight: 600;
+    padding: 16px;
+}
+  
+header li{
+    float:left;
+    display:inline;
+    padding: 0 20px 0 20px;
+}
+  
+header #brand{
+    float:left;
+}
+  
+header #brand h1{
+    margin:0;
+}
+  
+header nav{
+    float:right;
+    margin-top:10px;
+}
+
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #c4f7a0;
+    border-radius: 4px 4px 4px 4px;
+  }
+  
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: auto;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    border-radius: 4px 4px 4px 4px;
+}
+
+button:hover {
+    opacity:1;
+}
+
+
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.left {
+    width: 100%;
+}
+
+.right {
+    width: 100%;
+}
+
+@media only screen and (min-width: 800px) {
+
+    .column {
+        float: left;
+    }
+      
+    .left {
+        width: 25%;
+    }
+    
+    .right {
+        width: 75%;
+    }
+}
+
+.left-content {
+    padding: 16px;
+}
+
+.list-header {
+    background: #1faa00;
+    color: white;
+    font-weight: 600;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+  
+ul li {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
+    padding: 12px;
+    font-weight: 600;
+}
