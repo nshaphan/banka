@@ -11,6 +11,22 @@ body{
     overflow:hidden;
 }
 
+.login-container {
+    width:80%;
+    margin:auto;
+    overflow:hidden;
+}
+
+@media screen and (min-width: 500px) {
+    .login-container {
+        max-width: 500px;
+        margin: auto;
+    }
+}
+
+
+
+
 ul{
     margin:0;
     padding:0;
@@ -33,7 +49,6 @@ header a{
 }
   
 header li{
-    float:left;
     display:inline;
     padding: 0 20px 0 20px;
 }
@@ -52,7 +67,7 @@ header nav{
 }
 
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], textarea {
     width: 100%;
     padding-top: 15px;
     padding-left: 15px;
@@ -64,7 +79,7 @@ input[type=text], input[type=password] {
     border-radius: 4px 4px 4px 4px;
   }
   
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
     background-color: #ddd;
     outline: none;
 }
@@ -74,7 +89,7 @@ hr {
     margin-bottom: 25px;
 }
 
-button {
+.button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -115,9 +130,17 @@ button:hover {
     .left {
         width: 25%;
     }
+
+    .acc-left {
+        width: 15%;
+    }
     
     .right {
         width: 75%;
+    }
+
+    .acc-right {
+        width: 85%;
     }
 }
 
@@ -145,11 +168,11 @@ ul.accounts li {
     font-weight: 600;
 }
 
-ul.accounts a, ul.transaction-list a {
+ul.accounts a, ul.transaction-list a, ul.accounts-list li {
     text-decoration: none;
 }
 
-ul.transaction-list li {
+ul.transaction-list li, ul.accounts-list li {
     
     margin-top: -1px;
     border-bottom: 1px solid #ddd;
@@ -178,6 +201,26 @@ ul.transaction-list li {
     padding: 16px;
 }
 
-#profile h4 {
+#profile h4, .accounts h4, .accounts h3 {
     margin: 0;
 } 
+
+.acc-right {
+    padding-top: 16px;
+}
+
+.btn-action {
+    background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.9;
+}
+
+.btn-action:hover {
+    opacity: 1;
+}
