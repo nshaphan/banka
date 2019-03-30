@@ -34,6 +34,7 @@ describe('POST /auth/signup', () => {
         .post('/auth/signup')
         .send(user)
         .end((err, res) => {
+            
             chai.expect(res.body).to.eql(response);
             chai.expect(res.status).to.eql(200);
             done(err);
