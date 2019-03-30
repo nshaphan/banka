@@ -1,9 +1,9 @@
 
 var chai = require('chai');
-let chaiHttp = require('chai-http');
+var chaiHttp = require('chai-http');
 var app = require("./index");
 
-let should = chai.should();
+var should = chai.should();
 
 chai.use(chaiHttp);
 
@@ -33,10 +33,10 @@ describe('POST /auth/signup', () => {
         chai.request(app)
         .post('/auth/signup')
         .send(user)
-        .expect(200)
         .end((err, res) => {
             
-            res.body.should.haveOw
+            chai.expect(res.body).to.eql(response);
+            chai.expect(res.status).to.eql(200);
             done(err);
         });
     }); 
