@@ -51,6 +51,30 @@ app.post('/auth/signup', function(req, res) {
     res.json(response);
 });
 
+app.post('/auth/signin',function(req, res){
+    var credentials = {
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    var signin_spec = {
+        status : 200,
+        data : {
+            token : '45erkjherht45495783',
+            id : 1,
+            firstName : 'Emmanuel' ,
+            lastName : 'Twahirwa' ,
+            email : 'emmy@banka.com'
+        }
+    }
+
+    db.users.forEach(user => {
+        if(user.email == credentials.email && user.password == credentials.password) {
+            res.json(user);
+        }
+    });
+});
+
 app.listen(app.get('port'), function(){
     console.log( 'Express started on http://localhost:' +
     app.get('port') + '; press Ctrl-C to terminate.' );
