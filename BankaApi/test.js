@@ -8,7 +8,7 @@ var should = chai.should();
 chai.use(chaiHttp);
 
 var user = {
-    id : 1,
+    id : 2,
     email: 'emmy@banka.com',
     firstname: 'Emmanuel',
     lastname: 'Twahirwa',
@@ -17,11 +17,13 @@ var user = {
     isAdmin: false
 }
 
+
+
 var response = {
     status: 200,
     data: {
         token: '45erkjherht45495783',
-        id: 1,
+        id: 2,
         firstname: 'Emmanuel',
         lastname: 'Twahirwa',
         email: 'emmy@banka.com'
@@ -48,7 +50,7 @@ describe("POST /auth/signin", () => {
         status : 200,
         data : {
             token : '45erkjherht45495783',
-            id : 1,
+            id : 2,
             firstName : 'Emmanuel' ,
             lastName : 'Twahirwa' ,
             email : 'emmy@banka.com'
@@ -61,7 +63,7 @@ describe("POST /auth/signin", () => {
             .send({email: user.email, password: user.password})
             .end((err, res) => {
                 chai.expect(res.status).to.eql(200); 
-                chai.expect(res.body).to.eql(user);
+                chai.expect(res.body).to.eql(signin_spec);
                 done(err);
             })
             

@@ -26,23 +26,16 @@ app.get('/', function(req, res) {
 });
 
 app.post('/auth/signup', function(req, res) {
-    var user = {
-        id : req.body.id,
-        email: req.body.email,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        password: req.body.password,
-        type: req.body.type,
-        isAdmin: req.body.isAdmin
-    }
+    var user = req.body;
 
     db.users.push(user);
+    user.id = db.users.length;
 
     var response = {
         status: 200,
         data: {
             token: '45erkjherht45495783',
-            id: db.users.length - 1,
+            id: user.id,
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email
@@ -52,25 +45,23 @@ app.post('/auth/signup', function(req, res) {
 });
 
 app.post('/auth/signin',function(req, res){
-    var credentials = {
-        email: req.body.email,
-        password: req.body.password
-    }
-
-    var signin_spec = {
-        status : 200,
-        data : {
-            token : '45erkjherht45495783',
-            id : 1,
-            firstName : 'Emmanuel' ,
-            lastName : 'Twahirwa' ,
-            email : 'emmy@banka.com'
-        }
-    }
-
+    var credentials = req.body;
+    
     db.users.forEach(user => {
         if(user.email == credentials.email && user.password == credentials.password) {
-            res.json(user);
+            
+            var signin_spec = {
+                status : 200,
+                data : {
+                    token : '45erkjherht45495783',
+                    id : user.id,
+                    firstName : user.firstname,
+                    lastName : user.lastname,
+                    email : user.email
+                }
+            }
+            
+            res.json(signin_spec);
         }
     });
 });
