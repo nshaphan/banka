@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
+app.set('api_version', 'v1');
+app.set('base_url', '/api/'+ api_version);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -21,11 +23,14 @@ var db = {
     ]
 }
 
-app.get('/', function(req, res) {
+var api_version = app.get('api_version');
+var base_url = app.get('base_url');
+
+app.get(base_url, function(req, res) {
     res.json(db.users);
 });
 
-app.post('/auth/signup', function(req, res) {
+app.post(base_url +'/auth/signup', function(req, res) {
     var user = req.body;
 
     db.users.push(user);
@@ -44,7 +49,7 @@ app.post('/auth/signup', function(req, res) {
     res.json(response);
 });
 
-app.post('/auth/signin',function(req, res){
+app.post(base_url +'/auth/signin',function(req, res){
     var credentials = req.body;
     
     db.users.forEach(user => {

@@ -3,19 +3,39 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var app = require("./index");
 
-var should = chai.should();
-
 chai.use(chaiHttp);
 
-var user = {
-    id : 2,
-    email: 'emmy@banka.com',
-    firstname: 'Emmanuel',
-    lastname: 'Twahirwa',
-    password: '1234@bk',
-    type: 'client',
-    isAdmin: false
-}
+var api_version = app.get('api_version');
+var base_url = app.get('base_url');
+
+dbTest = {
+    users : [
+        {
+            id : 2,
+            email: 'emmy@banka.com',
+            firstname: 'Emmanuel',
+            lastname: 'Twahirwa',
+            password: '1234@bk',
+            type: 'client',
+            isAdmin: false
+        }
+    ],
+
+    accounts : [
+        {
+            accountName : 'Shaphan',
+            openingBalance : '5000',
+            currency : '$',
+            type : 'savings'
+        }
+    ]
+} 
+
+
+var testUser = dbTest.users[0];
+var testAccount = dbTest.accounts[0];
+
+
 
 
 
@@ -33,8 +53,8 @@ var response = {
 describe('POST /auth/signup', () => {
     it('should be able to create a new user', (done) => {
         chai.request(app)
-            .post('/auth/signup')
-            .send(user)
+            .post(base_url +'/auth/signup')
+            .send(testUser)
             .end((err, res) => {
                 
                 chai.expect(res.body).to.eql(response);
@@ -59,16 +79,40 @@ describe("POST /auth/signin", () => {
         
     it("should be able to authenticate the user", (done) => {
         chai.request(app)
-            .post('/auth/signin')
-            .send({email: user.email, password: user.password})
+            .post(base_url +'/auth/signin')
+            .send({email: testUser.email, password: testUser.password})
             .end((err, res) => {
                 chai.expect(res.status).to.eql(200); 
                 chai.expect(res.body).to.eql(signin_spec);
                 done(err);
-            })
+            });
             
     });
 });
 
+describe("POST /accounts", () => {
 
+    var acc_spec = {
+        status : 200,
+        data : {
+            accountNumber: '20183444094',
+            firstName: testUser.firstName,
+            lastName: testUser.lastName,
+            email: testUser.email,
+            type: testUser.type,
+            openingBalance: testAccount.openingBalance
+        }
+
+    }
+    it("Should be able to create a new account", (done) => {
+        chai.request(app)
+            .post(base_url +'/accounts')
+            .send(testAccount)
+            .end((err, res) => {
+                chai.expect(res.status).to.eql(200);
+                chai.expect(res.body).to.eql(acc_spec);
+                done(err);
+            });
+    });
+});
 
