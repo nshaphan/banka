@@ -11,26 +11,7 @@ const api_version = 'v1';
 const base_url = '/api/'+ api_version;
 
 router.get(base_url, usersController.hello);
-
-router.post(base_url +'/auth/signup', function(req, res) {
-    var user = req.body;
-
-    user.id = banka.users.length + 1;
-    banka.users.push(user);
-    
-
-    var response = {
-        status: 200,
-        data: {
-            token: '45erkjherht45495783',
-            id: user.id,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            email: user.email
-        }
-    }
-    res.json(response);
-});
+router.post(base_url +'/auth/signup', usersController.signin);
 
 router.post(base_url +'/auth/signin', function(req, res){
     var credentials = req.body;
