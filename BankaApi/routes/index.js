@@ -1,6 +1,6 @@
 import express from 'express'
-import banka from '../db/db';
 import usersController from '../controllers/Users';
+import accountsController from '../controllers/Accounts';
 
 import { generate } from "shortid";
 
@@ -13,10 +13,6 @@ const base_url = '/api/'+ api_version;
 router.get(base_url, usersController.hello);
 router.post(base_url +'/auth/signup', usersController.signup);
 router.post(base_url +'/auth/signin', usersController.signin);
-router.post(base_url +"/accounts", function(req, res){
-
-    
-
-});
+router.post(base_url +"/accounts", accountsController.accountCreate);
 
 export default router;
