@@ -6,7 +6,7 @@ class UsersController {
         res.send("hello world");
     }
 
-    signin(req, res) {
+    signup(req, res) {
 
         var user = req.body;
         user.id = banka.users.length + 1;
@@ -22,8 +22,30 @@ class UsersController {
                 email: user.email
             }
         }
-        
+
         res.json(response);
+    }
+
+    signin(req, res) {
+        var credentials = req.body;
+    
+        banka.users.forEach(user => {
+            if(user.email == credentials.email && user.password == credentials.password) {
+                
+                var signin_spec = {
+                    status : 200,
+                    data : {
+                        token : '45erkjherht45495783',
+                        id : user.id,
+                        firstName : user.firstname,
+                        lastName : user.lastname,
+                        email : user.email
+                    }
+                }
+                
+                res.json(signin_spec);
+            }
+        });
     }
 }
 
