@@ -1,5 +1,5 @@
 import express from 'express';
-import banka from './db/db';
+import router from './routes/index.js';
 
 import { json, urlencoded } from 'body-parser';
 import { generate } from "shortid";
@@ -12,7 +12,7 @@ app.set('base_url', '/api/'+ app.get('api_version'));
 
 app.use(json());
 app.use(urlencoded({extended: true}));
-
+app.use(router);
 
 var base_url = app.get('base_url');
 
