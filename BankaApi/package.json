@@ -17,7 +17,8 @@
     "nodemon": "^1.18.10"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node_modules/.bin/nodemon index.js --exec babel-node --"
   },
   "repository": {
     "type": "git",
