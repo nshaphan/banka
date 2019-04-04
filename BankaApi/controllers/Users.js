@@ -47,6 +47,8 @@ class UsersController {
             }
         });
     }
+
+    
 }
 
 const usersController = new UsersController();
