@@ -100,7 +100,7 @@ describe("POST /accounts", () => {
             lastName: testUser.lastName,
             email: testUser.email,
             type: testUser.type,
-            openingBalance: testAccount.openingBalance
+            balance: testAccount.openingBalance
         }
 
     }
