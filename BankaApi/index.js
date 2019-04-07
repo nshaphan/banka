@@ -9,7 +9,7 @@ app.use(json());
 app.use(urlencoded({extended: true}));
 app.use(router);
 
-app.listen(app.get('port'), function(){
+app.listen( 3000, function(){
     console.log( 'Express started on http://localhost:' +
     app.get('port') + '; press Ctrl-C to terminate.' );
 });

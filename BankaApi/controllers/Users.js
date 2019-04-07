@@ -1,4 +1,4 @@
-import db from '../db/db';
+import banka from '../db/db';
 
 class UsersController {
 

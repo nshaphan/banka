@@ -1,14 +1,14 @@
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var app = require("./index");
+var app = require("./index").default;
 
 chai.use(chaiHttp);
 
-var api_version = app.get('api_version');
-var base_url = app.get('base_url');
+const api_version = 'v1';
+const base_url = '/api/'+ api_version;
 
-dbTest = {
+var dbTest = {
     users : [
         {
             id : 2,
