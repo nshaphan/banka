@@ -1,21 +1,28 @@
 import banka from '../db/db';
+import shortid from 'shortid';
 
 class UsersController {
 
-    hello(req, res) {
-        res.send("hello world");
+    getUsers(req, res) {
+        res.send(banka.users);
     }
 
     signup(req, res) {
 
         var user = req.body;
+        
+        // Increment user id for new user
         user.id = banka.users.length + 1;
+        user.token = shortid.generate();
+
+        // Adding new user to database
         banka.users.push(user);
         
+        // generating response object
         var response = {
             status: 200,
             data: {
-                token: '45erkjherht45495783',
+                token: user.token,
                 id: user.id,
                 firstname: user.firstname,
                 lastname: user.lastname,
@@ -28,27 +35,25 @@ class UsersController {
 
     signin(req, res) {
         var credentials = req.body;
-    
-        banka.users.forEach(user => {
-            if(user.email == credentials.email && user.password == credentials.password) {
-                
-                var signin_spec = {
-                    status : 200,
-                    data : {
-                        token : '45erkjherht45495783',
-                        id : user.id,
-                        firstName : user.firstname,
-                        lastName : user.lastname,
-                        email : user.email
-                    }
-                }
-                
-                res.json(signin_spec);
-            }
-        });
-    }
 
-    
+        // find user with provided credentials 
+        var user = banka.users.find((user) => user.email == credentials.email 
+                                                && user.password == credentials.password);
+        // sign in response specifications
+        var response = {
+            status : 200,
+            data : {
+                token : user.token,
+                id : user.id,
+                firstName : user.firstname,
+                lastName : user.lastname,
+                email : user.email
+            }
+        };
+
+        res.json(response);
+
+    }    
 }
 
 const usersController = new UsersController();

@@ -1,26 +1,41 @@
 import banka from '../db/db';
+import accountHelper from "../helpers/AccountHelper";
 
 class AccountsController {
     accountCreate(req, res) {
+
+        var account = req.body;
+        var users = banka.users;
+
+        // incrementing account id for new account
+        account.id = banka.accounts.length + 1;
+
+        // Generate new Account Number
+        account.accountNumber = accountHelper.make();
         
-        banka.users.forEach(user => {
-            if(user.token == req.params.token) {
+        account.createdOn = new Date();
+        account.status = 'active';
 
-                var account = req.body;
+        const accountOwner = users.find((user) => user.token === req.query.token);
 
-                account.id = banka.accounts.length + 1;
-                account.accountNumber = '20183444094';
-                account.createdOn = new Date();
-                account.status = 'active';
+        account.owner = accountOwner.id;
+        banka.accounts.push(account);
 
-                account.owner = user.id;
+        let response = {
+            status: 200,
+            data: {
+                accountNumber: account.account,
+                firstname: accountOwner.firstname,
+                lastname: accountOwner.lastname,
+                email: accountOwner.email,
+                type: account.type,
+                openingBalance: account.balance
 
-                banka.accounts.push(account);
-
-                res.json(account);
-                
             }
-        });
+        }
+
+        res.status(200).json(response);
+    
     } 
 }
 

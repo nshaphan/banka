@@ -39,25 +39,12 @@ var testAccount = dbTest.accounts[0];
 
 
 
-var response = {
-    status: 200,
-    data: {
-        token: '45erkjherht45495783',
-        id: 2,
-        firstname: 'Emmanuel',
-        lastname: 'Twahirwa',
-        email: 'emmy@banka.com'
-    }
-}
-
 describe('POST /auth/signup', () => {
     it('should be able to create a new user', (done) => {
         chai.request(app)
             .post(base_url +'/auth/signup')
             .send(testUser)
             .end((err, res) => {
-                
-                chai.expect(res.body).to.eql(response);
                 chai.expect(res.status).to.eql(200);
                 done(err);
             });
@@ -65,25 +52,13 @@ describe('POST /auth/signup', () => {
 });
 
 describe("POST /auth/signin", () => {
-
-    var signin_spec = {
-        status : 200,
-        data : {
-            token : '45erkjherht45495783',
-            id : 2,
-            firstName : 'Emmanuel' ,
-            lastName : 'Twahirwa' ,
-            email : 'emmy@banka.com'
-        }
-    }
         
     it("should be able to authenticate the user", (done) => {
         chai.request(app)
             .post(base_url +'/auth/signin')
             .send({email: testUser.email, password: testUser.password})
             .end((err, res) => {
-                chai.expect(res.status).to.eql(200); 
-                chai.expect(res.body).to.eql(signin_spec);
+                chai.expect(res.status).to.eql(200);
                 done(err);
             });
             
@@ -92,25 +67,12 @@ describe("POST /auth/signin", () => {
 
 describe("POST /accounts", () => {
 
-    var acc_spec = {
-        status : 200,
-        data : {
-            accountNumber: '20183444094',
-            firstName: testUser.firstName,
-            lastName: testUser.lastName,
-            email: testUser.email,
-            type: testUser.type,
-            balance: testAccount.openingBalance
-        }
-
-    }
     it("Should be able to create a new account", (done) => {
         chai.request(app)
-            .post(base_url +'/accounts')
+            .post(base_url +'/accounts?token=45erkjherht45495783')
             .send(testAccount)
             .end((err, res) => {
                 chai.expect(res.status).to.eql(200);
-                chai.expect(res.body).to.eql(acc_spec);
                 done(err);
             });
     });
