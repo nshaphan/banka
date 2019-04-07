@@ -6,25 +6,29 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "shortid": "^2.2.14"
-  },
-  "engines": {
-    "node": "10.3.0"
-  }, 
-  "devDependencies": {
+    "shortid": "^2.2.14",
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.3",
     "@babel/register": "^7.4.0",
-    "chai": "^4.2.0",
-    "chai-http": "^4.2.1",
-    "mocha": "^6.0.2",
     "nodemon": "^1.18.10"
   },
+  "engines": {
+    "node": "10.15.3"
+  }, 
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "mocha": "^6.0.2"
+  },
   "scripts": {
-    "test": "mocha --require @babel/register",
-    "start": "nodemon --exec babel-node index.js"
+    "server:start": "./node_modules/.bin/babel-node ./api/src/index",
+    "server:watch": "nodemon --exec babel-node -- ./api/src/index",
+    "test": "mocha ./api/tests/*.js --require @babel/register",
+    "clean": "rm -rf build && mkdir build",
+    "compile": "./node_modules/.bin/babel ./api/src -d ./build",
+    "start": "node ./build/index.js" 
   },
   "repository": {
     "type": "git",
