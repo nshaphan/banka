@@ -3,8 +3,6 @@ import banka from '../db/db';
 class AccountsController {
     accountCreate(req, res) {
         
-        res.json(req.params.token);
-
         banka.users.forEach(user => {
             if(user.token == req.params.token) {
 
