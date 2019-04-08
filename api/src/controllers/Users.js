@@ -52,7 +52,6 @@ class UsersController {
         };
 
         res.json(response);
-
     }    
 }
 

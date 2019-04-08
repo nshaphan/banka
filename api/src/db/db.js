@@ -22,6 +22,19 @@ const banka = {
             status: 'active',
             balance: '2000',
         }
+    ],
+
+    transactions: [
+        {
+            id: 1,
+            createdOn: '12-05-2018',
+            type: 'debit',
+            accountNumber: '20183444095',
+            cashier: 1,
+            amount: 3000,
+            oldBalance: 5000,
+            newBalance: 2000
+        }
     ]
 }
 

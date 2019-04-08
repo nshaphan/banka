@@ -25,7 +25,7 @@
   "scripts": {
     "server:start": "./node_modules/.bin/babel-node ./api/src/index",
     "server:watch": "nodemon --exec babel-node -- ./api/src/index",
-    "test": "mocha ./api/tests/*.js --require @babel/register",
+    "test": "mocha ./api/src/tests/*.js --require @babel/register",
     "clean": "rm -rf build && mkdir build",
     "compile": "./node_modules/.bin/babel ./api/src -d ./build",
     "start": "node ./build/index.js" 

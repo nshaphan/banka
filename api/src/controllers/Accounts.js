@@ -70,6 +70,7 @@ class AccountsController {
         res.status(200).json(response);
     }
 
+    // Delete a user account
     deleteAccount(req, res) {
         // getting account number from url
         let accountNumber = req.params.accountNumber;
