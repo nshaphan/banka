@@ -18,7 +18,14 @@ var bankaTest = {
             currency : '$',
             type : 'savings'
         }
+    ],
+
+    transactions : [
+        {
+            amount: 1000
+        }
     ]
+
 }
 
 export default bankaTest;
