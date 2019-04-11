@@ -30,35 +30,36 @@
     <section id="content">
         <div class="row">
             <div class="column left">
-                <div class="left-content">
-                    <ul class="accounts">
-                        <li class="list-header">All Accounts</li>
-                        <li><a href="">#20183444094</a></li>
-                        <li><a href="">#20173285949</a></li>
-                        <li><a href="">#20198384859</a></li>
-                    </ul>
-                    <br><br>
-                    <button type="submit" class="button acc-createbtn">Add Account</button>
-
-                </div>
+                <ul class="accounts">
+                    <li class="list-header">All Accounts</li>
+                    <li><a href="">#20183444094</a></li>
+                    <li><a href="">#20173285949</a></li>
+                    <li><a href="">#20198384859</a></li>
+                </ul>
+                <br><br>
+                <button type="submit" class="button acc-createbtn">Add Account</button>
             </div>
 
             <div class="column right">
-                <div id="profile" >
-                    
-                        <img class="rounded" src="assets/user-192.png"/>
-                    <div class="row">
-                        <div class="column right">
-                            <h3>Shaphan</h3>
-                            <h4>A/C: 20183444094</h4>
-                            <span>Saving Account | since May, 16, 2018</span>
-                            | <span style="color: green;">Active</span> 
-                        </div>
-    
-                        <div class="column left">
-                            <div><b>Bal: $5, 915</b></div>
-                        </div>
+                <div id="profile">
+                    <div class="card">
+                            <img class="rounded" src="assets/user-192.png"/>
+                            <div class="row">
+                                <div class="column right">
+                                    <div id="account-info">
+                                        <h3>Shaphan</h3>
+                                        <h4>A/C: 20183444094</h4>
+                                        <span>Saving Account | since May, 16, 2018</span>
+                                        | <span style="color: green;">Active</span> 
+                                    </div>
+                                </div>
+            
+                                <div class="column left">
+                                    <div><b>Bal: $5, 915</b></div>
+                                </div>
+                            </div>
                     </div>
+                    
 
                     <hr>
                     <h1>Transaction History</h1>
@@ -66,37 +67,48 @@
                     <div class="transactions">
                         <ul class="transaction-list">
                             <li>
-                                <span class="tr-type-green">+ $200</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sold telephone</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $5, 915</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                <div class="card">
+                                    <span class="tr-type-green">+ $200</span><br>
+                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sold telephone</span><br>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $5, 915</span>
+                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                </div>
+                                
                             </li>
                             <li>
-                                <span class="tr-type-green">+ $900</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interest on savings</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $5, 715</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 12, 2019 12:00</span>
-                            </li>
-
-                            <li>
-                                <span class="tr-type-red">- $80</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paid Internet</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $4, 815</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 12, 2019 12:00</span>
+                                <div class="card">
+                                    <span class="tr-type-green">+ $900</span><br>
+                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interest on savings</span><br>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $5, 715</span>
+                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 12, 2019 12:00</span>
+                                </div>
                             </li>
 
                             <li>
-                                <span class="tr-type-red">- $5</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Annual account maintenance fee</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $4, 895</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;Feberuary, 12, 2019 12:00</span>
+                                <div class="card">
+                                    <span class="tr-type-red">- $80</span><br>
+                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paid Internet</span><br>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $4, 815</span>
+                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 12, 2019 12:00</span>
+                                </div>
                             </li>
 
                             <li>
-                                <span class="tr-type-green">+ $2, 000</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Salary</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $4, 900</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 12, 2019 12:00</span>
+                                <div class="card">
+                                    <span class="tr-type-red">- $5</span><br>
+                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Annual account maintenance fee</span><br>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $4, 895</span>
+                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;Feberuary, 12, 2019 12:00</span>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="card">
+                                    <span class="tr-type-green">+ $2, 000</span><br>
+                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Salary</span><br>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $4, 900</span>
+                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 12, 2019 12:00</span>
+                                </div>
                             </li>
                             
                         </ul>
