@@ -30,111 +30,131 @@
     <section id="content">
         <div class="row">
             <div class="column left">
-                <div class="left-content">
-                    <ul class="accounts">
-                        <li class="list-header">Frequent Accounts</li>
-                        <li><a href="">#20183444094</a></li>
-                        <li><a href="">#20173285949</a></li>
-                        <li><a href="">#20198384859</a></li>
-                    </ul>
-                    <br><br>
-                    <a href="bank-new-transact.html">
-                        <button type="submit" class="button acc-createbtn">New Transaction</button>
-                    </a>
-                </div>
+                <ul class="accounts">
+                    <li class="list-header">Frequent Accounts</li>
+                    <li><a href="">#20183444094</a></li>
+                    <li><a href="">#20173285949</a></li>
+                    <li><a href="">#20198384859</a></li>
+                </ul>
+                
+                <br><br>
+                <a href="bank-new-transact.html">
+                    <button type="submit" class="button acc-createbtn">New Transaction</button>
+                </a>
             </div>
 
             <div class="column right">
-                <div class="container">
+                
                     <div class="transact-heading">
                             <h1>Account Transactions</h1>
                             <h3>A/C: 20183444094</h3>
                     </div>
                     
                     <hr>
-                    <div class="search">
-                            <input type="text" placeholder="Search Transactions by Staff Name, Amount or Date" 
-                            name="lname" required>
-                    </div>
-
-                    <div class="transactions">
-                        <ul class="transaction-list">
-                            <li>
-                                <span class="tr-type-green">+ $200</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Agnes</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-                            
-                            <li>
-                                <span class="tr-type-red">- $300</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20196575848</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Mutoni</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-
-                            <li>
-                                <span class="tr-type-green">+ $200</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Grace</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-
-                            <li>
-                                <span class="tr-type-green">+ $200</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Agnes</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-
-                            <li>
-                                <span class="tr-type-red">- $700</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 201984441223</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Aline</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-
-                            <li>
-                                <span class="tr-type-green">+ $200</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Agnes</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-                                    
-                            <li>
-                                <span class="tr-type-red">- $300</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20196575848</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Mutoni</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-            
-                            <li>
-                                <span class="tr-type-green">+ $200</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Grace</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-
-                            <li>
-                                <span class="tr-type-green">+ $200</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Agnes</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-            
-                            <li>
-                                <span class="tr-type-red">- $700</span><br>
-                                <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 201984441223</span><br>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Aline</span>
-                                <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                            </li>
-                        </ul>
-                        <div class="container">
-                            <br>
-                            <button type="submit" class="button" >View More History</button>
+                    
+                        <div class="search">
+                                <input type="text" placeholder="Search Transactions by Staff Name, Amount or Date" 
+                                name="lname" required>
                         </div>
+
+                        <div class="transactions">
+                            <ul class="transaction-list">
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-green">+ $200</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Agnes</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+                                
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-red">- $300</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20196575848</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Mutoni</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-green">+ $200</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Grace</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-green">+ $200</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Agnes</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-red">- $700</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 201984441223</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Aline</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-green">+ $200</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Agnes</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+                                        
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-red">- $300</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20196575848</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Mutoni</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+                
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-green">+ $200</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Grace</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-green">+ $200</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 20183444094</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Agnes</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+                
+                                <li>
+                                    <div class="card">
+                                        <span class="tr-type-red">- $700</span><br>
+                                        <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 201984441223</span><br>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Done by:</b> Aline</span>
+                                        <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="container">
+                                <br>
+                                <button type="submit" class="button" >View More History</button>
+                            </div>
+                    
                     </div>
-                </div>
             </div>
         </div>
     </section>
