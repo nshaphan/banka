@@ -1,6 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/chaphan/banka/badge.svg)](https://coveralls.io/github/chaphan/banka)
-
-[![Build Status](https://travis-ci.org/chaphan/banka.svg?branch=master)](https://travis-ci.org/chaphan/banka)
+[![Coverage Status](https://coveralls.io/repos/github/chaphan/banka/badge.svg)](https://coveralls.io/github/chaphan/banka) [![Build Status](https://travis-ci.org/chaphan/banka.svg?branch=master)](https://travis-ci.org/chaphan/banka)
 
 # banka
 
