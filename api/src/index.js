@@ -3,15 +3,16 @@ import router from './routes/index';
 import { json, urlencoded } from 'body-parser';
 
 var app = express();
-app.set('port', process.env.PORT || 3000);
+
+const PORT = process.env.PORT || 3000;
 
 app.use(json());
 app.use(urlencoded({extended: true}));
 app.use(router);
 
-app.listen( 3000, function(){
+app.listen( PORT, function(){
     console.log( 'Express started on http://localhost:' +
-    app.get('port') + '; press Ctrl-C to terminate.' );
+    PORT + '; press Ctrl-C to terminate.' );
 });
 
 export default app;
