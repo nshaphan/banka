@@ -1,11 +1,20 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=f832d4a72486dfcbb351b642b79f71b397851349e87551ba3ae3042e1a6d6070
 language: node_js
-
 node_js:
-    - "node"
+ - "stable"
+addons:
+  code_climate:
+    repo_token: SXAUCZj3AZlsWoux3RVe2Fe10xy0RJuJZ
 
-deploy:
-  provider: heroku
-  api_key:
-    secure: "836b2517-23ef-44c1-9271-8f390465fa34"
-    app: bankaa-api
-
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - npm run test
+  - npm run coverage
+# after_success: npm run coverage
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

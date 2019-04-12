@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/chaphan/banka.svg?branch=master)](https://travis-ci.org/chaphan/banka)
+
 # banka
 
 Banka is a light-weight core banking application that powers banking operations like account

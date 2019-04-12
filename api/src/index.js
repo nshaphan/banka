@@ -10,9 +10,8 @@ app.use(json());
 app.use(urlencoded({extended: true}));
 app.use(router);
 
-app.listen( PORT, function(){
-    console.log( 'Express started on http://localhost:' +
-    PORT + '; press Ctrl-C to terminate.' );
+app.listen( PORT, () => {
+    console.log( 'Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.' );
 });
 
 export default app;
