@@ -19,6 +19,9 @@ var bankaTest = {
     openingBalance: '5000',
     currency: '$',
     type: 'savings'
+  }],
+  transactions: [{
+    amount: 1000
   }]
 };
 var _default = bankaTest;

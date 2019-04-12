@@ -3,16 +3,16 @@ import router from './routes/index';
 import { json, urlencoded } from 'body-parser';
 
 var app = express();
-// start server
-const port = process.env.NODE_ENV === 'production' ? 80 : 4000;
+
+const PORT = process.env.PORT || 3000;
 
 app.use(json());
 app.use(urlencoded({extended: true}));
 app.use(router);
 
-app.listen(port, function(){
+app.listen( PORT, function(){
     console.log( 'Express started on http://localhost:' +
-    app.get('port') + '; press Ctrl-C to terminate.' );
+    PORT + '; press Ctrl-C to terminate.' );
 });
 
 export default app;
