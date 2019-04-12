@@ -1,4 +1,16 @@
 # ignore packages installed by npm
 node_modules
+
+
+# ignore vscode workspace files
+.vscode
+
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# nyc test coverage
+.nyc_output
+
 # put any other files you don't want to check in here,
 # such as .DS_Store (OSX), *.bak, etc.

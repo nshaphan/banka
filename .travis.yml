@@ -1,11 +1,7 @@
 language: node_js
-
 node_js:
-    - "node"
-
-deploy:
-  provider: heroku
-  api_key:
-    secure: "836b2517-23ef-44c1-9271-8f390465fa34"
-    app: bankaa-api
-
+  - "stable"
+script:
+  - npm test
+after_success:
+  - npm run coverage
