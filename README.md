@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/chaphan/banka/badge.svg)](https://coveralls.io/github/chaphan/banka)
+
 # banka
 
 Banka is a light-weight core banking application that powers banking operations like account
