@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/chaphan/banka/badge.svg)](https://coveralls.io/github/chaphan/banka) [![Build Status](https://travis-ci.org/chaphan/banka.svg?branch=master)](https://travis-ci.org/chaphan/banka)
+[![Coverage Status](https://coveralls.io/repos/github/chaphan/banka/badge.svg)](https://coveralls.io/github/chaphan/banka) [![Build Status](https://travis-ci.org/chaphan/banka.svg?branch=master)](https://travis-ci.org/chaphan/banka) [![Maintainability](https://api.codeclimate.com/v1/badges/ac136a7dbfdd7bce1962/maintainability)](https://codeclimate.com/github/chaphan/banka/maintainability)
 
 # banka
 
