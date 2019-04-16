@@ -21,6 +21,13 @@ class AccountsController {
         // find user using access_token
         const accountOwner = users.find((user) => user.token === req.query.token);
 
+        if(!accountOwner) {
+            res.status(400).json({
+                status: 400,
+                error: "invalid access token, please login first"
+            });
+        }
+
         account.owner = accountOwner.id;
         banka.accounts.push(account);
 
@@ -45,8 +52,8 @@ class AccountsController {
     toggleStatus(req, res) {
         
         // getting account number from url
-        let accountNumber = req.params.accountNumber;
-        let accounts = banka.accounts;
+        let { accountNumber } = req.params;
+        let { accounts } = banka;
 
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
@@ -73,7 +80,7 @@ class AccountsController {
     // Delete a user account
     deleteAccount(req, res) {
         // getting account number from url
-        let accountNumber = req.params.accountNumber;
+        let { accountNumber } = req.params;
         let accounts = banka.accounts;
 
         // find account index using account number

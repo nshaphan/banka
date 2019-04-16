@@ -1,13 +1,79 @@
 
 import { use, request, expect } from 'chai';
 import chaiHttp from 'chai-http';
+import httpMocks from 'node-mocks-http';
 import app from '../index';
 import bankaTest from '../db/db_test';
+import userValidator from '../middlewares/userValidator';
+
 
 use(chaiHttp);
 
 const api_version = 'v1';
-const base_url = '/api/'+ api_version; 
+const base_url = '/api/'+ api_version;
+
+var requ = {};
+var resp = {};
+
+describe('userValidator Middleware', () => {
+    context('valid arguments are passed', () => {
+        beforeEach((done) => {
+            requ = httpMocks.createRequest({
+                method: 'POST',
+                url: '/auth/signup',
+                body: {
+                    "email": "shaphan@banka.com",
+                    "firstname": "shaphan",
+                    "lastname": "nzabonimana",
+                    "password": "123@bk",
+                    "type": "client",
+                    "isadmin":false
+                } 
+            });
+            resp = httpMocks.createResponse();
+
+            done();
+        });
+
+        it('user input should be valid', (done) => {
+            userValidator(requ, resp, function next(error) {
+                console.log(error);
+                if (!error) { throw new Error('Expected to receive an error'); }
+            })
+            done();
+        })
+    });
+
+    context('invalid arguments are passed', () => {
+        beforeEach((done) => {
+            requ = httpMocks.createRequest({
+                method: 'POST',
+                url: '/auth/signup',
+                body: {
+                    "email": "shaphanbanka.com",
+                    "firstname": "shaphan",
+                    "lastname": "nzabonimana",
+                    "password": "123@bk",
+                    "type": "client",
+                    "isadmin":false
+                } 
+            });
+            resp = httpMocks.createResponse();
+
+            done();
+        });
+
+        it('expected to return an error', (done) => {
+            
+            userValidator(requ, resp, function next(error) {
+                console.log(error);
+                expect(resp.status).to.eql(200);
+                //if (!error) { throw new Error('Expected to receive an error'); }    
+            })
+            done();
+        })
+    });
+})
 
 describe('POST /auth/signup', () => {
 
