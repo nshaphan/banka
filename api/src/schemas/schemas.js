@@ -10,4 +10,10 @@ const userSchema = joi.object().keys({
     type: joi.string().valid(['client', 'staff']).required(),
 });
 
+const signinSchema = joi.object().keys({
+    email: email,
+    password: joi.string().min(8).required()
+});
+
+
 export default userSchema;
