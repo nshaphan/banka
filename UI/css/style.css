@@ -234,16 +234,14 @@ ul.transaction-list li .card, ul.accounts-list li.card {
 /* login */
 
 #welcome {
-    background: #64dd17;
+   
     display: block;
     padding: 48px;
-    color: #ffffff;
-    text-align: center;
 }
 
 #welcome h1 {
     margin: 0;
-    color: #ddd;
+    
 }
 
 .btn-cta {
