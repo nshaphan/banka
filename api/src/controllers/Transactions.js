@@ -13,6 +13,22 @@ class Transaction {
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
+        if(accountIndex < 0) {
+            res.status(400).json({
+                status: 400,
+                error: "invalid user account"
+            });
+        }
+
+        let oldBalance = parseFloat(banka.accounts[accountIndex].balance);
+        let newBalance = parseFloat(req.body.amount)
+        
+        if(oldBalance < newBalance) {
+            res.status(400).json({
+                status: 400,
+                error: "insufficient balance"
+            });
+        }
 
         let transaction = {
             id: banka.users.length + 1,
@@ -57,6 +73,12 @@ class Transaction {
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
+        if(accountIndex < 0) {
+            res.status(400).json({
+                status: 400,
+                error: "invalid user account"
+            });
+        }
 
         let transaction = {
             id: banka.users.length + 1,

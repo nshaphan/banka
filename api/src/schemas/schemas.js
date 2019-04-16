@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 const name = joi.string().regex(/^[A-Za-z]+$/).lowercase().required();
-const email = joi.string().email().lowercase().required();
+const email = joi.string().email({minDomainAtoms: 2 }).lowercase().required();
 
 const userSchema = joi.object().keys({
     firstname: name,
