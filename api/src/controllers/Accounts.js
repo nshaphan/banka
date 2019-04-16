@@ -58,7 +58,7 @@ class AccountsController {
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
-        if(!accountIndex) {
+        if(accountIndex < 0) {
             res.status(400).json({
                 status: 400,
                 error: "invalid user account"
@@ -93,7 +93,7 @@ class AccountsController {
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
-        if(!accountIndex) {
+        if(accountIndex < 0) {
             res.status(400).json({
                 status: 400,
                 error: "invalid user account"
