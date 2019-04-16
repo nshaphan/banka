@@ -21,6 +21,13 @@ class AccountsController {
         // find user using access_token
         const accountOwner = users.find((user) => user.token === req.query.token);
 
+        if(!accountOwner) {
+            res.status(400).json({
+                status: 400,
+                error: "invalid access token, please login first"
+            });
+        }
+
         account.owner = accountOwner.id;
         banka.accounts.push(account);
 

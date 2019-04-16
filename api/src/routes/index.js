@@ -22,7 +22,7 @@ router.post('/', userSignUpRequest, (req, res) => {
 });
 
 router.get(base_url +'/users', usersController.getUsers);
-router.post(base_url +'/auth/signup', usersController.signup);
+router.post(base_url +'/auth/signup', userSignUpRequest, usersController.signup);
 router.post(base_url +'/auth/signin', usersController.signin);
 
 router.post(base_url +"/accounts", accountsController.accountCreate);
