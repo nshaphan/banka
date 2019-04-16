@@ -8,8 +8,9 @@ class UsersController {
     }
 
     signup(req, res) {
+        let user = {};
 
-        var {email, firstname, lastname, password, type, isadmin} = req.body;
+        let { email, firstname, lastname, password, type, isadmin } = req.body;
         
         // Increment user id for new user
         user.id = banka.users.length + 1;
@@ -19,6 +20,8 @@ class UsersController {
         user.password = password,
         user.type = type;
         user.isadmin = isadmin;
+
+        // Generating token to authenticate the user
         user.token = shortid.generate();
 
         // Adding new user to database
@@ -48,7 +51,8 @@ class UsersController {
         
         var userIndex = banka.users.findIndex((user) => user.email == email && user.password == password);
 
-        // nbanka.users[userIndex].token
+        banka.users[userIndex].token = shortid.generate();
+        
         if(!user) {
             res.status(400).json({
                 status: 400,

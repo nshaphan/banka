@@ -45,8 +45,8 @@ class AccountsController {
     toggleStatus(req, res) {
         
         // getting account number from url
-        let accountNumber = req.params.accountNumber;
-        let accounts = banka.accounts;
+        let { accountNumber } = req.params;
+        let { accounts } = banka;
 
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
@@ -73,7 +73,7 @@ class AccountsController {
     // Delete a user account
     deleteAccount(req, res) {
         // getting account number from url
-        let accountNumber = req.params.accountNumber;
+        let { accountNumber } = req.params;
         let accounts = banka.accounts;
 
         // find account index using account number
