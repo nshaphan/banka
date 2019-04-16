@@ -61,7 +61,7 @@ example request body
 }
 ```
 
-### POST /accounts?token=<token>
+### POST /accounts?token=:token
 this endpoint is used to create a new user, example token: 45erkjherht45495783
 
 example url
@@ -81,7 +81,7 @@ example request body
 ```
 
 
-### PATCH /account/<accountNumber>
+### PATCH /account/:accountNumber
 this enpoint is used to activate/deactivate bank account
 
 example request, example account number: 20183444095 
@@ -89,7 +89,7 @@ example request, example account number: 20183444095
 /account/20183444095
 ```
 
-### DELETE /accounts/<accountNumber>
+### DELETE /accounts/:accountNumber
 this endpoint is used to delete the account
 
 example request, example account number: 20183444095
@@ -97,7 +97,7 @@ example request, example account number: 20183444095
 /accounts/20183444095
 ```
 
-### POST /transactions/<accountNumber>/debit?token=<token>
+### POST /transactions/:accountNumber/debit?token=:token
 this endpoint is used to debit an account
 
 example account number: 20183444095
@@ -117,7 +117,7 @@ request body
 
 
 
-### POST /transactions/<accountNumber>/credit
+### POST /transactions/:accountNumber/credit
 this endpoint is used to credit an account
 
 example account number: 20183444095
