@@ -58,6 +58,13 @@ class AccountsController {
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
+        if(!accountIndex) {
+            res.status(400).json({
+                status: 400,
+                error: "invalid user account"
+            });
+        }
+
         // updating account based on account index
         if(banka.accounts[accountIndex].status == 'active') {
             banka.accounts[accountIndex].status = 'dormant';
@@ -86,6 +93,12 @@ class AccountsController {
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
+        if(!accountIndex) {
+            res.status(400).json({
+                status: 400,
+                error: "invalid user account"
+            });
+        }
         // updating deletedAt Account property
         banka.accounts[accountIndex].deletedAt = new Date();
 
