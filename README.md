@@ -42,10 +42,10 @@ example request body
 ```
 {
 	"email": "shaphan@banka.com",
-	"firstname": "shaphan"
-	"lastname": "nzabonimana"
-	"password": "123@bk"
-	"type": "client"
+	"firstname": "shaphan",
+	"lastname": "nzabonimana",
+	"password": "123@bk",
+	"type": "client",
 	"isadmin":false
 }
 ```
@@ -56,7 +56,7 @@ this endpoint is used to signin the user
 example request body
 ```
 {
-	"email": "shaphan@banka.com"
+	"email": "shaphan@banka.com",
 	"password": "123@bk"
 }
 ```
@@ -111,7 +111,7 @@ example request url,
 request body
 ```
 {
-	amount: 400
+	"amount": 400
 }
 ```
 
@@ -131,6 +131,6 @@ example request url,
 request body
 ```
 {
-	amount: 500
+	"amount": 500
 }
 ```
