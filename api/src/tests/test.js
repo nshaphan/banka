@@ -1,13 +1,79 @@
 
 import { use, request, expect } from 'chai';
 import chaiHttp from 'chai-http';
+import httpMocks from 'node-mocks-http';
 import app from '../index';
 import bankaTest from '../db/db_test';
+import userValidator from '../middlewares/userValidator';
+
 
 use(chaiHttp);
 
 const api_version = 'v1';
-const base_url = '/api/'+ api_version; 
+const base_url = '/api/'+ api_version;
+
+var requ = {};
+var resp = {};
+
+describe('userValidator Middleware', () => {
+    context('valid arguments are passed', () => {
+        beforeEach((done) => {
+            requ = httpMocks.createRequest({
+                method: 'POST',
+                url: '/auth/signup',
+                body: {
+                    "email": "shaphan@banka.com",
+                    "firstname": "shaphan",
+                    "lastname": "nzabonimana",
+                    "password": "123@bk",
+                    "type": "client",
+                    "isadmin":false
+                } 
+            });
+            resp = httpMocks.createResponse();
+
+            done();
+        });
+
+        it('user input should be valid', (done) => {
+            userValidator(requ, resp, function next(error) {
+                console.log(error);
+                if (!error) { throw new Error('Expected to receive an error'); }
+            })
+            done();
+        })
+    });
+
+    context('invalid arguments are passed', () => {
+        beforeEach((done) => {
+            requ = httpMocks.createRequest({
+                method: 'POST',
+                url: '/auth/signup',
+                body: {
+                    "email": "shaphanbanka.com",
+                    "firstname": "shaphan",
+                    "lastname": "nzabonimana",
+                    "password": "123@bk",
+                    "type": "client",
+                    "isadmin":false
+                } 
+            });
+            resp = httpMocks.createResponse();
+
+            done();
+        });
+
+        it('expected to return an error', (done) => {
+            
+            userValidator(requ, resp, function next(error) {
+                console.log(error);
+                expect(resp.status).to.eql(200);
+                //if (!error) { throw new Error('Expected to receive an error'); }    
+            })
+            done();
+        })
+    });
+})
 
 describe('POST /auth/signup', () => {
 
@@ -56,7 +122,7 @@ describe("POST /accounts", () => {
 
 describe("PATCH /account/<account-number>", () => {
 
-    it("Should be able to activate or disactivate account", (done) => {
+    it("Should be able to disactivate account", (done) => {
         request(app)
             .patch(base_url +'/account/20183444095')
             .end((err, res) => {
@@ -66,12 +132,25 @@ describe("PATCH /account/<account-number>", () => {
     });
 });
 
+describe("PATCH /account/<account-number>", () => {
 
-describe("DELETE /accounts/<account-number>", () => {
-
-    it("Should be able to delete account", (done) => {
+    it("Should be able to activate account", (done) => {
         request(app)
-            .delete(base_url +'/accounts/20183444095')
+            .patch(base_url +'/account/20183444095')
+            .end((err, res) => {
+                expect(res.status).to.eql(200);
+                done(err);
+            });
+    });
+});
+
+describe("POST /transactions/<account-number>/credit", () => {
+
+    var testTransact = bankaTest.transactions[0];
+    it("Should be able to credit account", (done) => {
+        request(app)
+            .post(base_url +'/transactions/20183444095/credit?token=45erkjherht45495783')
+            .send(testTransact)
             .end((err, res) => {
                 expect(res.status).to.eql(200);
                 done(err);
@@ -93,19 +172,18 @@ describe("POST /transactions/<account-number>/debit", () => {
     });
 });
 
-describe("POST /transactions/<account-number>/credit", () => {
+describe("DELETE /accounts/<account-number>", () => {
 
-    var testTransact = bankaTest.transactions[0];
-    it("Should be able to credit account", (done) => {
+    it("Should be able to delete account", (done) => {
         request(app)
-            .post(base_url +'/transactions/20183444095/credit?token=45erkjherht45495783')
-            .send(testTransact)
+            .delete(base_url +'/accounts/20183444095')
             .end((err, res) => {
                 expect(res.status).to.eql(200);
                 done(err);
             });
     });
 });
+
 
 
 

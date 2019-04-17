@@ -3,16 +3,42 @@ import banka from '../db/db';
 class Transaction {
     debitAccount(req, res) {
         // getting account number from url
-        let accountNumber = req.params.accountNumber;
-        let accounts = banka.accounts;
-        let users = banka.users;
+        let { accountNumber } = req.params;
+        let { amount } = req.body;
+        let { accounts } = banka;
+        let { users } = banka;
 
-        // find user using access_token
-        const cashier = users.find((user) => user.token === req.query.token);
+        // find cashier
+        const cashier = users.find((user) => user.id == req.body.user.id);
 
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
+        if(accountIndex < 0) {
+            res.status(400).json({
+                status: 400,
+                error: "invalid user account"
+            });
+        }
+        let isAccountDeleted = banka.accounts[accountIndex].deletedAt;
+        let isAccountDormant = banka.accounts[accountIndex].status != 'active' ? true : false;
+
+        if(isAccountDeleted || isAccountDormant) {
+            res.status(400).json({
+                status: 400,
+                error: "Account doesn't exist or it is disactivated"
+            });
+        }
+
+        let oldBalance = parseFloat(banka.accounts[accountIndex].balance);
+        amount = parseFloat(amount);
+        
+        if(oldBalance < amount) {
+            res.status(400).json({
+                status: 400,
+                error: "insufficient balance"
+            });
+        }
 
         let transaction = {
             id: banka.users.length + 1,
@@ -22,9 +48,9 @@ class Transaction {
             cashier: cashier.id,
             amount: req.body.amount,
             // retrieving existing old balance 
-            oldBalance: banka.accounts[accountIndex].balance,
+            oldBalance: oldBalance,
             // reducing transaction amount from existing balance
-            newBalance: parseFloat(banka.accounts[accountIndex].balance) - parseFloat(req.body.amount)
+            newBalance: oldBalance - amount
         }
 
         banka.accounts[accountIndex].balance = transaction.newBalance;
@@ -51,12 +77,27 @@ class Transaction {
         let accounts = banka.accounts;
         let users = banka.users;
 
-        // find user using access_token
-        const cashier = users.find((user) => user.token === req.query.token);
+        // find cashier
+        const cashier = users.find((user) => user.id == req.body.user.id);
 
         // find account index using account number
         const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
+        if(accountIndex < 0) {
+            res.status(400).json({
+                status: 400,
+                error: "invalid user account"
+            });
+        }
+        let isAccountDeleted = banka.accounts[accountIndex].deletedAt;
+        let isAccountDormant = banka.accounts[accountIndex].status != 'active' ? true : false;
+
+        if(isAccountDeleted || isAccountDormant) {
+            res.status(400).json({
+                status: 400,
+                error: "Account doesn't exist or it is disactivated"
+            });
+        }
 
         let transaction = {
             id: banka.users.length + 1,

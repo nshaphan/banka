@@ -1,13 +1,10 @@
 import joi from 'joi';
 
-const name = joi.string().regex(/^[A-Za-z]+$/).lowercase().required();
 const email = joi.string().email({minDomainAtoms: 2 }).lowercase().required();
 
-const userSchema = joi.object().keys({
-    firstname: name,
-    lastname: name,
+const signinSchema = joi.object().keys({
     email: email,
-    password: joi.string().min(8).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/).required()
+    password: joi.string().min(8).required()
 });
 
 export default () => {
@@ -19,8 +16,10 @@ export default () => {
 
     // return the validation middleware
     return (req, res, next) => {
-        return joi.validate(req.body, userSchema, validationOptions, (err, data) => {
+
+        return joi.validate(req.body, signinSchema, validationOptions, (err, data) => {
             if(err) {
+
                 const errors = [];
                 err.details.map((e) => {
                      errors.push({field: e.path[0], message: e.message});
@@ -40,4 +39,6 @@ export default () => {
             }
         });
     }
+
+    next();
 };
