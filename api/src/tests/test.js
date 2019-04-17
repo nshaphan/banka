@@ -122,7 +122,7 @@ describe("POST /accounts", () => {
 
 describe("PATCH /account/<account-number>", () => {
 
-    it("Should be able to activate or disactivate account", (done) => {
+    it("Should be able to disactivate account", (done) => {
         request(app)
             .patch(base_url +'/account/20183444095')
             .end((err, res) => {
@@ -132,12 +132,25 @@ describe("PATCH /account/<account-number>", () => {
     });
 });
 
+describe("PATCH /account/<account-number>", () => {
 
-describe("DELETE /accounts/<account-number>", () => {
-
-    it("Should be able to delete account", (done) => {
+    it("Should be able to activate account", (done) => {
         request(app)
-            .delete(base_url +'/accounts/20183444095')
+            .patch(base_url +'/account/20183444095')
+            .end((err, res) => {
+                expect(res.status).to.eql(200);
+                done(err);
+            });
+    });
+});
+
+describe("POST /transactions/<account-number>/credit", () => {
+
+    var testTransact = bankaTest.transactions[0];
+    it("Should be able to credit account", (done) => {
+        request(app)
+            .post(base_url +'/transactions/20183444095/credit?token=45erkjherht45495783')
+            .send(testTransact)
             .end((err, res) => {
                 expect(res.status).to.eql(200);
                 done(err);
@@ -159,19 +172,18 @@ describe("POST /transactions/<account-number>/debit", () => {
     });
 });
 
-describe("POST /transactions/<account-number>/credit", () => {
+describe("DELETE /accounts/<account-number>", () => {
 
-    var testTransact = bankaTest.transactions[0];
-    it("Should be able to credit account", (done) => {
+    it("Should be able to delete account", (done) => {
         request(app)
-            .post(base_url +'/transactions/20183444095/credit?token=45erkjherht45495783')
-            .send(testTransact)
+            .delete(base_url +'/accounts/20183444095')
             .end((err, res) => {
                 expect(res.status).to.eql(200);
                 done(err);
             });
     });
 });
+
 
 
 

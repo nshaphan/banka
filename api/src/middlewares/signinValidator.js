@@ -1,5 +1,11 @@
 import joi from 'joi';
-import signinSchema from '../schemas/schemas'
+
+const email = joi.string().email({minDomainAtoms: 2 }).lowercase().required();
+
+const signinSchema = joi.object().keys({
+    email: email,
+    password: joi.string().min(8).required()
+});
 
 export default () => {
     const validationOptions = {
