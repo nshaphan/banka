@@ -16,4 +16,6 @@ const signinSchema = joi.object().keys({
 });
 
 
-export default userSchema;
+export default {
+    userSchema
+} 
