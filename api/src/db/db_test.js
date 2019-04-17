@@ -1,13 +1,10 @@
 var bankaTest = {
     users : [
         {
-            id : 2,
             email: 'emmy@banka.com',
             firstname: 'Emmanuel',
             lastname: 'Twahirwa',
-            password: '12345@bk',
-            type: 'client',
-            isAdmin: false
+            password: '12345Bkk',
         }
     ],
 
@@ -19,7 +16,7 @@ var bankaTest = {
 
     transactions : [
         {
-            amount: 1000
+            amount: 6000
         }
     ]
 

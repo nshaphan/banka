@@ -75,36 +75,6 @@ describe('userValidator Middleware', () => {
     });
 })
 
-describe('POST /auth/signup', () => {
-
-    var testUser = bankaTest.users[0];
-    it('should be able to create a new user', (done) => {
-        request(app)
-            .post(base_url +'/auth/signup')
-            .send(testUser)
-            .end((err, res) => {
-                // Expect status to Ok!
-                expect(res.status).to.eql(200);
-                done(err);
-            });
-    }); 
-});
-
-describe("POST /auth/signin", () => {
-    
-    var testUser = bankaTest.users[0];
-    it('should be able to create a new user', (done) => {
-        request(app)
-            .post(base_url +'/auth/signin')
-            .send({email: testUser.email, password: testUser.password})
-            .end((err, res) => {
-
-                // Expect status to be equal to OK!
-                expect(res.status).to.eql(200);
-                done(err);
-            });
-    });
-});
 
 describe("POST /accounts", () => {
 
