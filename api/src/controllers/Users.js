@@ -10,9 +10,10 @@ class UsersController {
     }
 
     signup(req, res) {
-        let { email, firstname, lastname, password, type } = req.body;
+        let { email, firstname, lastname, password } = req.body;
         
         let isUserExist = banka.users.find((user) => user.email == email);
+
         if(isUserExist) {
             res.status(400).json({
                 status: 400,
@@ -30,6 +31,7 @@ class UsersController {
         user.password = password,
         user.type = 'client';
         user.isadmin = false;
+        
 
         // Generating token to authenticate the user
         var role = user.type;
@@ -41,7 +43,7 @@ class UsersController {
         }
 
 
-        let token = jwt.sign({id: user.id, role: type }, config.secret, {
+        let token = jwt.sign({id: user.id, role: role }, config.secret, {
             expiresIn: 86400 // expires in 24 hours
         });
 
