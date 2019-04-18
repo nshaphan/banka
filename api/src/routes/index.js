@@ -25,7 +25,7 @@ router.get(base_url +'/me', verifyToken, authorize([roles.client, roles.admin, r
     res.json(banka.users[userIndex]);
 });
 
-router.get(base_url +"/accounts", verifyToken, authorize([roles.cashier, roles.admin]), usersController.getUsers);
+router.get(base_url +"/users", verifyToken, authorize([roles.cashier, roles.admin]), usersController.getUsers);
 router.get(base_url +'/users', usersController.getUsers);
 router.post(base_url +'/auth/signup', userSignUpRequest, usersController.signup);
 router.post(base_url +'/auth/signin', signinRequest, usersController.signin);
