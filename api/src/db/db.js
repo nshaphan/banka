@@ -40,7 +40,7 @@ const banka = {
             balance: '2000',
         },
         {
-            id: 1,
+            id: 2,
             accountNumber: '20183444096',
             createdOn: "12-05-2018",
             owner: 1,

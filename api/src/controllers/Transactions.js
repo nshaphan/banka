@@ -1,6 +1,11 @@
 import banka from '../db/db';
 
 class Transaction {
+    getTransactions(req, res) {
+        let transactions = banka.transactions;
+        res.json(transactions);
+    }
+
     debitAccount(req, res) {
         // getting account number from url
         let { accountNumber } = req.params;
@@ -26,7 +31,7 @@ class Transaction {
         if(isAccountDeleted || isAccountDormant) {
             res.status(400).json({
                 status: 400,
-                error: "Account doesn't exist or it is disactivated"
+                error: "Account doesn't exist or it is deactivated"
             });
         }
 
@@ -95,7 +100,7 @@ class Transaction {
         if(isAccountDeleted || isAccountDormant) {
             res.status(400).json({
                 status: 400,
-                error: "Account doesn't exist or it is disactivated"
+                error: "Account doesn't exist or it is deactivated"
             });
         }
 

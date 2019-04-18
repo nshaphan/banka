@@ -1,6 +1,10 @@
 import joi from 'joi';
 
-const email = joi.string().email({minDomainAtoms: 2 }).lowercase().required();
+const email = joi.string()
+                .email({minDomainAtoms: 2 })
+                .lowercase()
+                .required()
+                .label("Valid Email Address is required");
 
 const signinSchema = joi.object().keys({
     email: email,
@@ -22,7 +26,7 @@ export default () => {
 
                 const errors = [];
                 err.details.map((e) => {
-                     errors.push({field: e.path[0], message: e.message});
+                     errors.push({field: e.path[0], message: e.message.replace(/"/g, '_').split('_')[1]});
                 });
 
                 const error = {

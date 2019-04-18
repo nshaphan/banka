@@ -3,10 +3,16 @@ import accountHelper from "../helpers/AccountHelper";
 
 class AccountsController {
 
+    getAccounts(req, res) {
+        let accounts = banka.accounts;
+        res.status(200).json(accounts);
+    }
     // create new bank account
     accountCreate(req, res) {
 
         var { type } = req.body;
+        type = type.toLowerCase();
+
         if(type != 'current' && type != 'savings') {
             res.status(400).json({
                 status: 400,
@@ -54,6 +60,7 @@ class AccountsController {
         
         // getting account number from url
         let { accountNumber } = req.params;
+        let { status } = req.body;
         let { accounts } = banka;
 
         // find account index using account number
@@ -63,6 +70,23 @@ class AccountsController {
             res.status(400).json({
                 status: 400,
                 error: "invalid user account"
+            });
+        }
+
+        status = status.toLowerCase();
+        let accountStatus = banka.accounts[accountIndex].status;
+        
+        if(status != 'active' && status != 'dormant') {
+            res.json({
+                error: 400,
+                message: "Account can be either active or dormant "+ status
+            });
+        }
+        
+        if(status == accountStatus) {
+            res.json({
+                error: 400,
+                message: "Account is already "+ status
             });
         }
 

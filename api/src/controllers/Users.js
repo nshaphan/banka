@@ -6,7 +6,8 @@ import config from '../config/config'
 class UsersController {
 
     getUsers(req, res) {
-        res.send(banka.users);
+        let users = banka.users;
+        res.send(users);
     }
 
     signup(req, res) {
