@@ -79,7 +79,7 @@ class AccountsController {
         if(status != 'active' && status != 'dormant') {
             res.json({
                 error: 400,
-                message: "Account can be either active or dormant "+ status
+                message: "Account can be either active or dormant "
             });
         }
         
@@ -91,11 +91,7 @@ class AccountsController {
         }
 
         // updating account based on account index
-        if(banka.accounts[accountIndex].status == 'active') {
-            banka.accounts[accountIndex].status = 'dormant';
-        } else {
-            banka.accounts[accountIndex].status = 'active';
-        }  
+        banka.accounts[accountIndex].status = status; 
 
         // response object
         let response = {
