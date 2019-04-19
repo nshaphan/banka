@@ -25,34 +25,56 @@
             </nav>
         </div>
     </header>
-    <section >
-        <div id="welcome">
-            <h1>Welcome to Banka</h1>
-            <h4>We serve you with the leading and outstanding banking solutions on the globe</h4>
-            <button class="btn-cta get-started">Get Started</button>
-            <button class="btn-cta signin">Sign In</button>
-        </div>
-            
-    </section>
+   
     <section id="content">
-        
-        <form action="user-dashboard.html">
-            <div class="login-container">
-                
-                <h1>Login</h1>
-                <hr>
-            
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" required>
-            
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
-            
-                <div class="clearfix">
-                    <button type="submit" class="button loginbtn">Login</button>
-                </div>
+        <div id="cta">
+            <div id="cta-content">
+                <h1 class="cta-head">Welcome to Banka</h1>
+                <p class="cta-subhead">
+                    We serve you with the leading and outstanding banking solutions on the globe
+                </p>
+                <p>
+                    <a href="user-signup.html"><button class="btn-cta get-started">Get Started</button></a>
+                </p>
             </div>
-        </form>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="column left">
+                    
+                </div>
+                <div class="column right">
+                        <div class="form-acc card">
+                            <div class="content">
+                                <form action="" class="form">
+                                    <h1>User Login</h1>
+                                    <hr>
+                                    
+                                    <div class="field">
+                                        <label for="email">Email</label>
+                                        <input type="text" placeholder="Enter Email" name="email" required>
+                                    </div>
+                                    <div class="field">
+                                        <label for="psw">Password:</label>
+                                        <input type="text" placeholder="Enter Password" value="" name="psw" required>     
+                                    </div>
+                                    
+                                    <br>
+                                    <div class="clearfix">
+                                        <button type="submit" class="button signupbtn">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+        </div>
+        
     </section>
+    <footer>
+        <div class="footer l-box is-center">
+            Developed by Shaphan
+        </div>
+    </footer>
   </body>
 </html>

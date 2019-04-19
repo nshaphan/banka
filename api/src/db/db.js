@@ -5,10 +5,27 @@ const banka = {
             email: 'user@banka.com',
             firstname: 'Shaphan',
             lastname: 'Nzabonimana',
-            password: '123@bk',
+            password: '123456Bk',
             type: 'client',
             isAdmin: false,
-            token: "45erkjherht45495783"
+        },
+        {
+            id: 2,
+            email: 'admin@banka.com',
+            firstname: 'kwizera',
+            lastname: 'Eric',
+            password: '123456Bk',
+            type: 'staff',
+            isAdmin: true,
+        },
+        {
+            id: 3,
+            email: 'cashier@banka.com',
+            firstname: 'Angel',
+            lastname: 'Umutoni',
+            password: '123456Bk',
+            type: 'staff',
+            isAdmin: true,
         }
     ],
 
@@ -16,6 +33,15 @@ const banka = {
         {
             id: 1,
             accountNumber: '20183444095',
+            createdOn: "12-05-2018",
+            owner: 1,
+            type: 'current',
+            status: 'active',
+            balance: '2000',
+        },
+        {
+            id: 2,
+            accountNumber: '20183444096',
             createdOn: "12-05-2018",
             owner: 1,
             type: 'current',
