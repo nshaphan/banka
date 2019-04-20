@@ -29,14 +29,18 @@ class AccountsController {
         }
     }
 
-    // create new bank account
+    /**
+     * Create new bank account
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     async accountCreate(req, res) {
         let { type } = req.body;
         type = type.toLowerCase();
 
         // check if valid account type is sent
         if(type != 'current' && type != 'savings') {
-            res.status(400).json({
+            return res.status(400).json({
                 status: 400,
                 error: "invalid account type, type can be either savings or current"
             });
@@ -109,9 +113,12 @@ class AccountsController {
     
     }
 
-    // change account status from active to dormant and vice-versa
-    async toggleStatus(req, res) {
-        
+    /**
+     * Change account status from active to dormant and vice-versa
+     * @param {Object} req 
+     * @param {Object} res 
+     */
+    async toggleStatus(req, res) {        
         // getting account number from url
         let { accountNumber } = req.params;
         let { status } = req.body;
@@ -187,7 +194,11 @@ class AccountsController {
         res.status(200).json(response);
     }
 
-    // Delete a user account
+    /**
+     * Delete a user account
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     async deleteAccount(req, res) {
         // getting account number from url
         let { accountNumber } = req.params;
