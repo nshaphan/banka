@@ -20,28 +20,60 @@ const userSignUpRequest = userValidator();
 const signinRequest = signinValidator();
 
 
-router.get(base_url +'/me', verifyToken, authorize([roles.client, roles.admin, roles.cashier]), (req, res) => {
-    let id = req.body.user.id;
-    var userIndex = banka.users.findIndex((user) => user.id == id);
-    res.json(banka.users[userIndex]);
-});
+router.get(base_url +'/me', verifyToken, authorize([
+    roles.client, 
+    roles.admin, 
+    roles.cashier
+]), (req, res) => {
+        let id = req.body.user.id;
+        var userIndex = banka.users.findIndex((user) => user.id == id);
+        res.json(banka.users[userIndex]);
+    });
 
 // router.get(base_url, users.create);
 
-router.get(base_url +"/users", verifyToken, authorize([roles.cashier, roles.admin]), usersController.getUsers);
-router.get(base_url +'/users', usersController.getUsers);
+router.get(base_url +"/users", verifyToken, authorize([
+    roles.cashier, 
+    roles.admin
+]), usersController.getUsers);
+
 router.post(base_url +'/auth/signup', userSignUpRequest, usersController.signup);
 router.post(base_url +'/auth/signin', signinRequest, usersController.signin);
 
-router.get(base_url +"/accounts", verifyToken, authorize([roles.cashier, roles.admin]), accountsController.getAccounts);
-router.post(base_url +"/accounts", verifyToken, authorize([roles.client]), accountsController.accountCreate);
-router.post(base_url +"/accounts/:accountNumber/transactions", verifyToken, authorize([roles.client]), accountsController.accountCreate);
-router.patch(base_url +'/account/:accountNumber', verifyToken, authorize([roles.cashier, roles.admin]), accountsController.toggleStatus);
-router.delete(base_url +'/accounts/:accountNumber', verifyToken, authorize([roles.cashier, roles.admin]), accountsController.deleteAccount);
+router.get(base_url +"/accounts", verifyToken, authorize([
+    roles.cashier, 
+    roles.admin
+]), accountsController.getAccounts);
 
-router.get(base_url +'/transactions', verifyToken, authorize([roles.cashier, roles.admin]), transactionsController.getTransactions);
-router.post(base_url +'/transactions/:accountNumber/debit', verifyToken, authorize([roles.cashier]), transactionsController.debitAccount);
-router.post(base_url +'/transactions/:accountNumber/credit', verifyToken, authorize([roles.cashier]), transactionsController.creditAccount);
+router.post(base_url +"/accounts", verifyToken, authorize([
+    roles.client
+]), accountsController.accountCreate);
+
+router.post(base_url +"/accounts/:accountNumber/transactions", verifyToken, authorize([
+    roles.client
+]), accountsController.accountCreate);
+router.patch(base_url +'/account/:accountNumber', verifyToken, authorize([
+    roles.cashier, 
+    roles.admin
+]), accountsController.toggleStatus);
+
+router.delete(base_url +'/accounts/:accountNumber', verifyToken, authorize([
+    roles.cashier, 
+    roles.admin
+]), accountsController.deleteAccount);
+
+router.get(base_url +'/transactions', verifyToken, authorize([
+    roles.cashier, 
+    roles.admin
+]), transactionsController.getTransactions);
+
+router.post(base_url +'/transactions/:accountNumber/debit', verifyToken, authorize([
+    roles.cashier
+]), transactionsController.debitAccount);
+
+router.post(base_url +'/transactions/:accountNumber/credit', verifyToken, authorize([
+    roles.cashier
+]), transactionsController.creditAccount);
 
 
 export default router;
