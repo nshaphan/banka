@@ -29,7 +29,7 @@ describe("POST /accounts", () => {
         request(app)
             .post(base_url +'/accounts')
             .set('x-access-token', token)
-            .send(testAccount)
+            .send({ type: 'current'})
             .end((err, res) => {
                 expect(res.status).to.eql(200);
                 done(err);
@@ -53,6 +53,7 @@ describe("PATCH /account/<account-number>", () => {
     it("Should be able to disactivate account", (done) => {
         request(app)
             .patch(base_url +'/account/20183444095')
+            .send({status: 'dormant'})
             .set('x-access-token', token)
             .end((err, res) => {
                 expect(res.status).to.eql(200);
@@ -64,6 +65,7 @@ describe("PATCH /account/<account-number>", () => {
         request(app)
             .patch(base_url +'/account/20183444095')
             .set('x-access-token', token)
+            .send({status: 'active'})
             .end((err, res) => {
                 expect(res.status).to.eql(200);
                 done(err);

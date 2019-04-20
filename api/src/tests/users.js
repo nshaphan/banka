@@ -37,7 +37,7 @@ describe("POST /auth/signin", () => {
     it('should be able to log in the user', (done) => {
         request(app)
             .post(base_url +'/auth/signin')
-            .send({email: testUser.email, password: testUser.password})
+            .send({email: 'user@banka.com', password: '123456Bk'})
             .then((res) => {
                 // Expect status to Ok!
                 expect(res.status).to.eql(200);

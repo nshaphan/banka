@@ -8,7 +8,7 @@ import verifyToken from '../middlewares/verifyToken';
 import banka from '../db/db'
 import roles from '../helpers/roles';
 import authorize from '../middlewares/authorize';
-import users from '../controllers/test';
+// import users from '../controllers/test';
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ router.get(base_url +'/me', verifyToken, authorize([roles.client, roles.admin, r
     res.json(banka.users[userIndex]);
 });
 
-router.get(base_url, users.create);
+// router.get(base_url, users.create);
 
 router.get(base_url +"/users", verifyToken, authorize([roles.cashier, roles.admin]), usersController.getUsers);
 router.get(base_url +'/users', usersController.getUsers);
