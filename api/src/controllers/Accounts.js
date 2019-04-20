@@ -19,7 +19,7 @@ class AccountsController {
             console.log(error);
             return res.status(400).send({
                 status: 400,
-                message: "Unable to retieve users, try again"
+                message: "Unable to retieve accounts, try again"
             });
         }
     }
