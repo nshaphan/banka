@@ -1,7 +1,8 @@
-import banka from '../db/db';
-import shortid from 'shortid';
-import jwt from 'jsonwebtoken';
+import banka from '../db/db'
+import shortid from 'shortid'
+import jwt from 'jsonwebtoken'
 import config from '../config/config'
+import db from '../helpers/queryHelper'
 
 class UsersController {
 
@@ -10,17 +11,30 @@ class UsersController {
         res.send(users);
     }
 
-    signup(req, res) {
+    async signup(req, res) {
         let { email, firstname, lastname, password } = req.body;
-        
-        let isUserExist = banka.users.find((user) => user.email == email);
 
-        if(isUserExist) {
-            res.status(400).json({
+        const userQuery = "SELECT email FROM users WHERE email = $1"; 
+        
+        try {
+            let { rowCount } = await db.query(userQuery, [email]);
+            
+            if(rowCount > 0) {
+                return res.status(400).json({
+                    status: 400,
+                    error: "User already exists"
+                });
+            }
+        } catch(error) {
+            console.log(error);
+            return res.status(200).send({
                 status: 400,
-                error: "User already exists"
+                message: "Unable to retieve users, try again"
             });
         }
+        
+       
+        
 
         let user = {};
 
@@ -29,9 +43,15 @@ class UsersController {
         user.email = email;
         user.firstname = firstname;
         user.lastname = lastname;
-        user.password = password,
-        user.type = 'client';
-        user.isadmin = false;
+        user.password = password;
+
+        if(req.body.user) {
+            user.type = req.body.type;
+            user.isadmin = req.body.isadmin;
+        } else {
+            user.type = 'client'
+            user.isadmin = false;
+        }
         
 
         // Generating token to authenticate the user
@@ -43,25 +63,44 @@ class UsersController {
             role = 'cashier';
         }
 
+        const newUserQuery = `INSERT INTO 
+        users(email, firstname, lastname, password, type, isAdmin)
+        VALUES($1, $2, $3, $4, $5, $6) returning *`;
 
-        let token = jwt.sign({id: user.id, role: role }, config.secret, {
+        const values = [
+            user.email,
+            user.firstname,
+            user.lastname,
+            user.password,
+            user.type,
+            user.isadmin
+        ]
+
+        let result = [];
+        try {
+            const { rows } = await db.query(newUserQuery, values); 
+            result = rows[0];
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to save user, try again"
+            });
+        }
+
+        let token = jwt.sign({id: result.id, role: role }, config.secret, {
             expiresIn: 86400 // expires in 24 hours
         });
-
-        user.token = token;
-
-        // Adding new user to database
-        banka.users.push(user);
         
         // generating response object
         let response = {
             status: 200,
             data: {
-                token: user.token,
-                id: user.id,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email
+                token: token,
+                id: result.id,
+                firstname: result.firstname,
+                lastname: result.lastname,
+                email: result.email
             }
         }
 
@@ -70,6 +109,7 @@ class UsersController {
 
     signin(req, res) {
         var { email, password } = req.body;
+
 
         // find user with provided credentials 
         var user = banka.users.find((user) => user.email == email 

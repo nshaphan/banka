@@ -1,11 +1,27 @@
 import banka from '../db/db';
 import accountHelper from "../helpers/AccountHelper";
-
+import db from "../helpers/queryHelper";
+ 
 class AccountsController {
 
-    getAccounts(req, res) {
-        let accounts = banka.accounts;
-        res.status(200).json(accounts);
+    async getAccounts(req, res) {
+
+        const accountsQuery = "SELECT * FROM accounts";
+    
+        try {
+            const { rows, rowCount } = await db.query(accountsQuery);
+            return res.status(200).send({ 
+                status: 200,
+                rows: rowCount,
+                data: rows   
+            });
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to retieve users, try again"
+            });
+        }
     }
     // create new bank account
     accountCreate(req, res) {

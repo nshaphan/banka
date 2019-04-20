@@ -59,3 +59,33 @@ describe("POST /transactions/<account-number>/debit", () => {
             });
     });
 });
+
+// res.should.have.status(200);
+//           res.body.should.be.a('object');
+//           res.body.should.have.property('status').eql(200);
+//           res.body.should.have.property('data');
+
+// describe("POST /transactions/<account-number>/debit", () => {
+
+//     before((done) => {
+//         request(app)
+//         .post(base_url +'/auth/signin')
+//         .send({email: 'cashier@banka.com', password: '123456Bk'})
+//         .end((err, res) => {
+//             token = res.body.data.token;
+//             done();
+//         });
+//     });
+
+//     var testTransact = bankaTest.transactions[0];
+//     it("Should be able to debit account", (done) => {
+//         request(app)
+//             .post(base_url +'/transactions/20183444096/debit')
+//             .set('x-access-token', token)
+//             .send(testTransact)
+//             .end((err, res) => {
+//                 expect(res.status).to.eql(200);
+//                 done(err);
+//             });
+//     });
+// });
