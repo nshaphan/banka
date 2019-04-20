@@ -156,14 +156,15 @@ class AccountsController {
         }
 
         // updating account status
-        const statUpQuery = `UPDATE account SET status = $1 WHERE accountNumber = $2`;
+        const statUpQuery = `UPDATE accounts SET status = $1 WHERE accountNumber = $2 returning *`;
         const values = [
             status,
             accountNumber
         ];
 
+        let result = {};
         try {
-            // insert a new bank account into db
+            // updating bank account status
             const { rows } = await db.query(statUpQuery, values); 
             result = rows[0];
         } catch(error) {
@@ -178,8 +179,8 @@ class AccountsController {
         let response = {
             status: 200,
             data: {
-                accountNumber: banka.accounts[accountIndex].accountNumber,
-                status: banka.accounts[accountIndex].status
+                accountNumber: result.accountNumber,
+                status: result.status
             }
         }
 
@@ -202,7 +203,7 @@ class AccountsController {
             });
         }
 
-        let isAccountDeleted = banka.accounts[accountIndex].deletedAt;
+        let isAccountDeleted = result.deletedAt;
 
         if(isAccountDeleted) {
             res.status(400).json({
@@ -212,7 +213,7 @@ class AccountsController {
         }
 
         // updating deletedAt Account property
-        banka.accounts[accountIndex].deletedAt = new Date();
+        result.deletedAt = new Date();
             
 
         let response = {
