@@ -188,40 +188,60 @@ class AccountsController {
     }
 
     // Delete a user account
-    deleteAccount(req, res) {
+    async deleteAccount(req, res) {
         // getting account number from url
         let { accountNumber } = req.params;
-        let accounts = banka.accounts;
-
-        // find account index using account number
-        const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
-        if(accountIndex < 0) {
-            res.status(400).json({
+        let account = {}
+        // find account index using account number
+        const accountQuery = "SELECT * FROM accounts WHERE accountNumber = $1"; 
+        try {
+            let { rows, rowCount } = await db.query(accountQuery, [accountNumber]);
+            if(rowCount <= 0) {
+                return res.status(400).json({
+                    status: 400,
+                    error: "Invalid account number"
+                });
+            }
+            account = rows[0];         
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
                 status: 400,
-                error: "invalid user account"
+                message: "Problem with server, try again"
             });
         }
 
-        let isAccountDeleted = result.deletedAt;
+        let isAccountDeleted = account.deletedat;
 
         if(isAccountDeleted) {
-            res.status(400).json({
+            return res.status(400).json({
                 status: 400,
                 error: "Account doesn't exist"
             });
         }
 
-        // updating deletedAt Account property
-        result.deletedAt = new Date();
-            
+        // updating account status
+        const accDelQuery = `UPDATE accounts SET deletedAt = $1 WHERE accountNumber = $2`;
+        const values = [
+            new Date(),
+            accountNumber
+        ];
 
-        let response = {
-            status: 200,
-            message: "Account successfully deleted"
+        try {
+            // Deleting bank account
+            await db.query(accDelQuery, values);
+            return res.json({
+                status: 200,
+                message: "Account successfully deleted"
+            });
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to delete account, try again later"
+            });
         }
-
-        res.json(response);
     }
     
 }
