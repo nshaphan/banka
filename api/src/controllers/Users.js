@@ -27,19 +27,15 @@ class UsersController {
             }
         } catch(error) {
             console.log(error);
-            return res.status(200).send({
+            return res.status(400).send({
                 status: 400,
                 message: "Unable to retieve users, try again"
             });
         }
-        
-       
-        
 
         let user = {};
-
         // Increment user id for new user
-        user.id = banka.users.length + 1;
+
         user.email = email;
         user.firstname = firstname;
         user.lastname = lastname;
@@ -107,26 +103,31 @@ class UsersController {
         res.json(response);
     }
 
-    signin(req, res) {
-        var { email, password } = req.body;
-
+    async signin(req, res) {
+        const { email, password } = req.body;
 
         // find user with provided credentials 
-        var user = banka.users.find((user) => user.email == email 
-                                                && user.password == password);
-
-        if(!user) {
-            res.status(401).json({
-                status: 401,
-                token: null,
-                auth: false,
-                error: "invalid username or password"
+        const userQuery = "SELECT * FROM users WHERE email = $1 AND password = $2"; 
+        
+        let user = {}
+        try {
+            let { rows, rowCount } = await db.query(userQuery, [email, password]);
+            if(rowCount <= 0) {
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Invalid email or password'
+                });
+            }
+            user = rows[0];            
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Problem with server, try again"
             });
         }
         
-        var userIndex = banka.users.findIndex((user) => user.email == email && user.password == password);
-
-        var role = user.type;
+        let role = user.type;
 
         if(user.isadmin == true) {
             role = 'admin';
@@ -135,14 +136,12 @@ class UsersController {
         }
 
 
-        let token = jwt.sign({id: user.id, role: role }, config.secret, {
+        const token = jwt.sign({id: user.id, role: role }, config.secret, {
             expiresIn: 86400 // expires in 24 hours
         });
-
-        banka.users[userIndex].token = token;
         
         // sign in response specifications
-        var response = {
+        const response = {
             status: 200,
             data: {
                 token: token,
@@ -153,7 +152,7 @@ class UsersController {
             }
         };
 
-        res.json(response);
+        return res.json(response);
     }    
 }
 
