@@ -6,9 +6,8 @@ import db from '../helpers/queryHelper'
 
 class UsersController {
 
-    getUsers(req, res) {
+    async getUsers(req, res) {
         const usersQuery = "SELECT * FROM users";
-    
         try {
             const { rows, rowCount } = await db.query(usersQuery);
             return res.status(200).send({ 
@@ -27,12 +26,9 @@ class UsersController {
 
     async signup(req, res) {
         let { email, firstname, lastname, password } = req.body;
-
         const userQuery = "SELECT email FROM users WHERE email = $1"; 
-        
         try {
             let { rowCount } = await db.query(userQuery, [email]);
-            
             if(rowCount > 0) {
                 return res.status(400).json({
                     status: 400,
@@ -48,8 +44,8 @@ class UsersController {
         }
 
         let user = {};
-        // Increment user id for new user
 
+        // Increment user id for new user
         user.email = email;
         user.firstname = firstname;
         user.lastname = lastname;
@@ -66,7 +62,6 @@ class UsersController {
 
         // Generating token to authenticate the user
         var role = user.type;
-
         if(user.isadmin == true) {
             role = 'admin';
         } else if(user.type == 'staff') {
@@ -142,13 +137,11 @@ class UsersController {
         }
         
         let role = user.type;
-
         if(user.isadmin == true) {
             role = 'admin';
         } else if(user.type == 'staff') {
             role = 'cashier';
         }
-
 
         const token = jwt.sign({id: user.id, role: role }, config.secret, {
             expiresIn: 86400 // expires in 24 hours
