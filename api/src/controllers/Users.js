@@ -7,8 +7,22 @@ import db from '../helpers/queryHelper'
 class UsersController {
 
     getUsers(req, res) {
-        let users = banka.users;
-        res.send(users);
+        const usersQuery = "SELECT * FROM users";
+    
+        try {
+            const { rows, rowCount } = await db.query(usersQuery);
+            return res.status(200).send({ 
+                status: 200,
+                rows: rowCount,
+                data: rows   
+            });
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to retieve users, try again"
+            });
+        }
     }
 
     async signup(req, res) {
