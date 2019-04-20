@@ -1,14 +1,19 @@
 import banka from '../db/db';
 import accountHelper from "../helpers/AccountHelper";
 import db from "../helpers/queryHelper";
- 
+
 class AccountsController {
 
+    /**
+     * Get all bank accounts
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     async getAccounts(req, res) {
 
         const accountsQuery = "SELECT * FROM accounts";
-    
         try {
+            // query database for accounts
             const { rows, rowCount } = await db.query(accountsQuery);
             return res.status(200).send({ 
                 status: 200,
@@ -23,12 +28,13 @@ class AccountsController {
             });
         }
     }
-    // create new bank account
-    accountCreate(req, res) {
 
-        var { type } = req.body;
+    // create new bank account
+    async accountCreate(req, res) {
+        let { type } = req.body;
         type = type.toLowerCase();
 
+        // check if valid account type is sent
         if(type != 'current' && type != 'savings') {
             res.status(400).json({
                 status: 400,
@@ -36,13 +42,22 @@ class AccountsController {
             });
         }
 
-        var users = banka.users;
         // find logged in user
-        const accountOwner = users.find((user) => user.id == req.body.user.id);
+        let user = {};
+        const userQuery = "SELECT * FROM users WHERE id = $1"; 
+        try {
+            let { rows, rowCount } = await db.query(userQuery, [req.body.user.id]);
+            user = rows[0];            
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Problem with server, try again"
+            });
+        }
+        const accountOwner = user;
         
         let account = {};
-        // incrementing account id for new account
-        account.id = banka.accounts.length + 1;
 
         // Generate new Account Number
         account.accountNumber = accountHelper.make();
@@ -52,7 +67,31 @@ class AccountsController {
         account.status = 'active';
 
         account.owner = accountOwner.id;
-        banka.accounts.push(account);
+
+        const accountQuery = `INSERT INTO 
+        accounts(accountNumber, createdOn, owner, type, status, balance)
+        VALUES($1, $2, $3, $4, $5, $6) returning *`;
+        const values = [
+            account.accountNumber,
+            account.createdOn,
+            account.owner,
+            account.type,
+            account.status,
+            account.balance
+        ];
+
+        let result = [];
+        try {
+            // insert a new bank account into db
+            const { rows } = await db.query(accountQuery, values); 
+            result = rows[0];
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to save user, try again"
+            });
+        }
 
         let response = {
             status: 200,
