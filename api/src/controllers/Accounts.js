@@ -102,7 +102,6 @@ class AccountsController {
                 email: accountOwner.email,
                 type: account.type,
                 openingBalance: account.balance
-
             }
         }
 
@@ -111,43 +110,70 @@ class AccountsController {
     }
 
     // change account status from active to dormant and vice-versa
-    toggleStatus(req, res) {
+    async toggleStatus(req, res) {
         
         // getting account number from url
         let { accountNumber } = req.params;
         let { status } = req.body;
-        let { accounts } = banka;
-
-        // find account index using account number
-        const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
         
-        if(accountIndex < 0) {
-            res.status(400).json({
+        let account = {}
+        // find account index using account number
+        const accountQuery = "SELECT * FROM accounts WHERE accountNumber = $1"; 
+        try {
+            let { rows, rowCount } = await db.query(accountQuery, [accountNumber]);
+            if(rowCount <= 0) {
+                return res.status(400).json({
+                    status: 400,
+                    error: "Invalid account number"
+                });
+            }
+            account = rows[0];            
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
                 status: 400,
-                error: "invalid user account"
+                message: "Problem with server, try again"
             });
         }
 
+        // changing status case to lower for compatibility
         status = status.toLowerCase();
-        let accountStatus = banka.accounts[accountIndex].status;
-        
+
+        let accountStatus = account.status;
         if(status != 'active' && status != 'dormant') {
-            res.json({
+            return res.json({
                 error: 400,
                 message: "Account can be either active or dormant "
             });
         }
         
+        // Alerting user when sent status is like current account status
         if(status == accountStatus) {
-            res.json({
+            return res.json({
                 error: 400,
                 message: "Account is already "+ status
             });
         }
 
-        // updating account based on account index
-        banka.accounts[accountIndex].status = status; 
+        // updating account status
+        const statUpQuery = `UPDATE account SET status = $1 WHERE accountNumber = $2`;
+        const values = [
+            status,
+            accountNumber
+        ];
 
+        try {
+            // insert a new bank account into db
+            const { rows } = await db.query(statUpQuery, values); 
+            result = rows[0];
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to update account status, try again later"
+            });
+        }
+        
         // response object
         let response = {
             status: 200,
