@@ -93,7 +93,7 @@ class AccountsController {
             console.log(error);
             return res.status(400).send({
                 status: 400,
-                message: "Unable to save user, try again"
+                message: "Unable to add new account, try again"
             });
         }
 
