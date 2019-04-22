@@ -159,3 +159,29 @@ describe("GET /users/<user-email-address>/accounts", () => {
             .then(done, done);
     });
 });
+
+describe("GET /users/<user-email-address>/accounts", () => {
+
+    before((done) => {
+        request(app)
+        .post(base_url +'/auth/signin')
+        .send({email: 'cashier@banka.com', password: '123456Bk'})
+        .then((res) => {
+            token = res.body.data.token;
+        })
+        .then(done, done);
+    });
+
+    
+    it("Should be able to return all accounts owned by a specific user", (done) => {
+        request(app)
+            .post(base_url +'/user/user@banka/accounts')
+            .set('x-access-token', token)
+            .then((res) => {
+                expect(res.body).to.be.an('object');
+                expect(res.body).to.have.property('status').eql(200);
+                expect(res.body).to.have.property('accounts');
+            })
+            .then(done, done);
+    });
+});

@@ -71,12 +71,18 @@ router.get(base_url +'/accounts/:accountNumber/transactions', verifyToken, autho
     roles.cashier, 
     roles.admin,
     roles.client
-]), transactionsController.getTransactions);
+]), transactionsController.getAccountTransactions);
 
 router.get(base_url +'/transactions', verifyToken, authorize([
     roles.cashier, 
     roles.admin
 ]), transactionsController.getTransactions);
+
+router.get(base_url +'/transactions/:transactionId', verifyToken, authorize([
+    roles.cashier, 
+    roles.admin,
+    roles.client
+]), transactionsController.getTransactionById);
 
 router.post(base_url +'/transactions/:accountNumber/debit', verifyToken, authorize([
     roles.cashier

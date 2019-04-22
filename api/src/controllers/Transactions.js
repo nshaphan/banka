@@ -1,6 +1,7 @@
 import db from '../helpers/queryHelper'
 
 class Transaction {
+
     /**
      * Get all transactions
      * @param {Object} req 
@@ -8,39 +9,9 @@ class Transaction {
      */
     async getTransactions(req, res) { 
         let transactionsQuery = "SELECT * FROM transactions";
-
-        if(req.params.accountNumber) {
-            transactionsQuery = "SELECT * FROM transactions WHERE accountnumber = $1";
-        }
-
-        if(req.params.transactionId) {
-            transactionsQuery = "SELECT * FROM transactions WHERE id = $1";
-        }
         
         try {
             // query database for transactions
-            if(req.params.accountNumber) {
-                const values = [
-                    req.params.accountNumber
-                ];
-                const { rows } = await db.query(transactionsQuery, values);
-                return res.status(200).send({ 
-                    status: 200,
-                    data: rows   
-                });
-            }
-
-            if(req.params.transactionId) {
-                const values = [
-                    req.params.transactionId
-                ];
-                const { rows } = await db.query(transactionsQuery, values);
-                return res.status(200).send({ 
-                    status: 200,
-                    data: rows   
-                });
-            }
-
             const { rows, rowCount } = await db.query(transactionsQuery);
 
             return res.status(200).send({ 
@@ -56,12 +27,13 @@ class Transaction {
             });
         }
     }
+
     /**
-     * Debit account
+     * Debit the account
      * @param {Object} req 
      * @param {Object} res 
      */
-    async debitAccount(req, res) {
+     async debitAccount(req, res) {
         // getting account number from url
         let { accountNumber } = req.params;
         let { amount } = req.body;
@@ -70,7 +42,7 @@ class Transaction {
         let cashier = {};
         const userQuery = "SELECT * FROM users WHERE id = $1"; 
         try {
-            let { rows, rowCount } = await db.query(userQuery, [req.body.user.id]);
+            let { rows } = await db.query(userQuery, [req.body.user.id]);
             cashier = rows[0];            
         } catch(error) {
             console.log(error);
@@ -99,8 +71,7 @@ class Transaction {
                 message: "Problem with server, try again"
             });
         }
-        
-        
+            
         let isAccountDeleted = account.deletedat;
         let isAccountDormant = account.status != 'active' ? true : false;
 
@@ -193,6 +164,11 @@ class Transaction {
         return res.json(response);
     }
 
+    /**
+     * Debit the account
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     async creditAccount(req, res) {
         // getting account number from url
         let accountNumber = req.params.accountNumber;
@@ -315,6 +291,64 @@ class Transaction {
 
         // Send response object
         return res.json(response);
+    }
+
+    /**
+     * Get specific account's transactions
+     * @param {Object} req 
+     * @param {Object} res 
+     */
+    async getAccountTransactions(req, res) {
+        const { accountNumber } = req.params;
+        const transactionsQuery = "SELECT * FROM transactions WHERE accountnumber = $1";
+
+        const values = [
+            accountNumber    
+        ];
+
+        try {
+            const { rows, rowCount } = await db.query(transactionsQuery, values);
+            return res.status(200).send({ 
+                status: 200,
+                rowCount: rowCount,
+                data: rows   
+            });
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to retrieve transactions, try again"
+            });
+        }
+    }
+
+    /**
+     * Get Transaction details by id
+     * @param {Object} req 
+     * @param {Object} res 
+     */
+    async getTransactionById(req, res) {
+        const { transactionId } = req.params;
+        const transactionsQuery = "SELECT * FROM transactions WHERE id = $1";
+
+        const values = [
+            transactionId    
+        ];
+
+        try {
+            const { rows } = await db.query(transactionsQuery, values);
+            return res.status(200).send({ 
+                status: 200,
+                data: rows   
+            });
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to retrieve transaction, try again"
+            });
+        }
+
     }
 }
 
