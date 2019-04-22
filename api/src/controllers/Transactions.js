@@ -7,13 +7,29 @@ class Transaction {
      * @param {Object} res 
      */
     async getTransactions(req, res) { 
-        const transactionsQuery = "SELECT * FROM transactions";
+        let transactionsQuery = "SELECT * FROM transactions";
+
+        if(req.params.accountNumber) {
+            transactionsQuery = "SELECT * FROM transactions WHERE accountnumber = $1";
+        }
         try {
             // query database for transactions
+            if(req.params.accountNumber) {
+                const values = [
+                    req.params.accountNumber
+                ];
+                const { rows } = await db.query(transactionsQuery, values);
+                return res.status(200).send({ 
+                    status: 200,
+                    data: rows   
+                });
+            }
+
             const { rows, rowCount } = await db.query(transactionsQuery);
+
             return res.status(200).send({ 
                 status: 200,
-                rows: rowCount,
+                rowCount: rowCount,
                 data: rows   
             });
         } catch(error) {
@@ -33,7 +49,6 @@ class Transaction {
         // getting account number from url
         let { accountNumber } = req.params;
         let { amount } = req.body;
-
         
         // find logged in user
         let cashier = {};

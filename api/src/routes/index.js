@@ -67,6 +67,12 @@ router.patch(base_url +'/accounts/:accountNumber/undelete', verifyToken, authori
     roles.admin
 ]), accountsController.undelete);
 
+router.get(base_url +'/accounts/:accountNumber/transactions', verifyToken, authorize([
+    roles.cashier, 
+    roles.admin,
+    roles.client
+]), transactionsController.getTransactions);
+
 router.get(base_url +'/transactions', verifyToken, authorize([
     roles.cashier, 
     roles.admin
