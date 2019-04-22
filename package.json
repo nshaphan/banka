@@ -7,6 +7,7 @@
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
+    "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/register": "^7.4.0",
     "body-parser": "^1.18.3",
@@ -35,7 +36,7 @@
   "scripts": {
     "server:start": "./node_modules/.bin/babel-node ./api/src/index --exit",
     "server:watch": "nodemon --exec babel-node -- ./api/src/index",
-    "test": "nyc --reporter=html --reporter=text mocha ./api/src/tests/*.js --require @babel/register  --timeout 5000 --exit",
+    "test": "nyc --reporter=html --reporter=text mocha ./api/src/tests/*.js --require @babel/polyfill --require @babel/register  --timeout 5000 --exit",
     "clean": "rm -rf build && mkdir build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "compile": "./node_modules/.bin/babel ./api/src -d ./build",
