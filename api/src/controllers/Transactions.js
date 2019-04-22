@@ -12,11 +12,27 @@ class Transaction {
         if(req.params.accountNumber) {
             transactionsQuery = "SELECT * FROM transactions WHERE accountnumber = $1";
         }
+
+        if(req.params.transactionId) {
+            transactionsQuery = "SELECT * FROM transactions WHERE id = $1";
+        }
+        
         try {
             // query database for transactions
             if(req.params.accountNumber) {
                 const values = [
                     req.params.accountNumber
+                ];
+                const { rows } = await db.query(transactionsQuery, values);
+                return res.status(200).send({ 
+                    status: 200,
+                    data: rows   
+                });
+            }
+
+            if(req.params.transactionId) {
+                const values = [
+                    req.params.transactionId
                 ];
                 const { rows } = await db.query(transactionsQuery, values);
                 return res.status(200).send({ 
