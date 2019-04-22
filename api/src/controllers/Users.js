@@ -1,5 +1,3 @@
-import banka from '../db/db'
-import shortid from 'shortid'
 import jwt from 'jsonwebtoken'
 import config from '../config/config'
 import db from '../helpers/queryHelper'
