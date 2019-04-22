@@ -67,10 +67,10 @@ describe("PATCH /account/<account-number>", () => {
             .patch(base_url +'/account/20183444095')
             .set('x-access-token', token)
             .send({status: 'active'})
-            .end((err, res) => {
+            .then((res) => {
                 expect(res.status).to.eql(200);
-                done(err);
-            });
+            })
+            .then(done, done);
     });
 });
 
@@ -88,7 +88,17 @@ describe("DELETE /accounts/<account-number>", () => {
 
     it("Should be able to delete account", (done) => {
         request(app)
-            .delete(base_url +'/accounts/183444095')
+            .delete(base_url +'/accounts/20183444095')
+            .set('x-access-token', token)
+            .then((res) => {
+                expect(res.status).to.eql(200);
+            })
+            .then(done, done);
+    });
+
+    it("Should be able to restore account", (done) => {
+        request(app)
+            .patch(base_url +'/accounts/20183444095/undelete')
             .set('x-access-token', token)
             .then((res) => {
                 expect(res.status).to.eql(200);

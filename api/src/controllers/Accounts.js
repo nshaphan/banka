@@ -255,7 +255,32 @@ class AccountsController {
         }
     }
     
+    async undelete(req, res) {
+        let { accountNumber } = req.params;
+        // updating account status
+        const accDelQuery = `UPDATE accounts SET deletedAt = $1 WHERE accountNumber = $2`;
+        const values = [
+            null,
+            accountNumber
+        ];
+
+        try {
+            // Deleting bank account
+            await db.query(accDelQuery, values);
+            return res.json({
+                status: 200,
+                message: "Account successfully restored"
+            });
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to delete account, try again later"
+            });
+        }
+    }
 }
+
 
 const accountsController = new AccountsController();
 export default accountsController;

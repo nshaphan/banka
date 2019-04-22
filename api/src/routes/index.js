@@ -62,6 +62,11 @@ router.delete(base_url +'/accounts/:accountNumber', verifyToken, authorize([
     roles.admin
 ]), accountsController.deleteAccount);
 
+router.patch(base_url +'/accounts/:accountNumber/undelete', verifyToken, authorize([
+    roles.cashier, 
+    roles.admin
+]), accountsController.undelete);
+
 router.get(base_url +'/transactions', verifyToken, authorize([
     roles.cashier, 
     roles.admin
