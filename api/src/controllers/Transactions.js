@@ -7,6 +7,7 @@ class Transaction {
      * @param {Object} req 
      * @param {Object} res 
      */
+
     async getTransactions(req, res) { 
         let transactionsQuery = "SELECT * FROM transactions";
         
