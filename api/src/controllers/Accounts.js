@@ -255,6 +255,11 @@ class AccountsController {
         }
     }
     
+    /**
+     * Restore Deleted account
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     async undelete(req, res) {
         let { accountNumber } = req.params;
         // updating account status
@@ -279,6 +284,32 @@ class AccountsController {
             });
         }
     }
+
+    /**
+     * Get all accounts by email
+     * @param {Object} req 
+     * @param {Object} res 
+     */
+    async getAccountsByEmail(req, res) {
+
+        const accountsQuery = "SELECT * FROM accounts ";
+        try {
+            // query database for accounts
+            const { rows, rowCount } = await db.query(accountsQuery);
+            return res.status(200).send({ 
+                status: 200,
+                rows: rowCount,
+                data: rows   
+            });
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to retieve accounts, try again"
+            });
+        }
+    }
+ 
 }
 
 
