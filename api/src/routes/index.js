@@ -8,6 +8,7 @@ import verifyToken from '../middlewares/verifyToken';
 import banka from '../db/db'
 import roles from '../helpers/roles';
 import authorize from '../middlewares/authorize';
+import verifySuperToken from '../middlewares/verifySuperToken';
 // import users from '../controllers/test';
 
 const router = express.Router();
@@ -37,7 +38,10 @@ router.get(base_url +"/users", verifyToken, authorize([
     roles.admin
 ]), usersController.getUsers);
 
-router.post(base_url +'/auth/signup', userSignUpRequest, usersController.signup);
+router.post(base_url +'/auth/signup', verifySuperToken, authorize([
+    roles.public,
+    roles.superuser
+]), userSignUpRequest, usersController.signup);
 router.post(base_url +'/auth/signin', signinRequest, usersController.signin);
 router.post(base_url +'/auth/admin/setup', usersController.firstTimeSetup)
 

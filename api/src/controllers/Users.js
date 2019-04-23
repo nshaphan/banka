@@ -7,18 +7,17 @@ class UsersController {
     async firstTimeSetup(req, res) {
         const userQuery = "SELECT * FROM users WHERE isadmin = true"; 
         try {
-            let { rowCount } = await db.query(userQuery, [email]);
+            let { rowCount } = await db.query(userQuery);
+            
             if(rowCount > 0) {
-                return res.status(400).json({
-                    status: 400,
-                    error: "User already exists"
-                });
+                return res.status(401).json({ message: 'Unauthorized access, authenticate as asdmin, please!' });
             }
+
         } catch(error) {
             console.log(error);
             return res.status(400).send({
                 status: 400,
-                message: "Unable to retieve users, try again"
+                message: "Authentication failed, try again"
             });
         }
 
@@ -27,6 +26,14 @@ class UsersController {
         let token = jwt.sign({ email }, config.secret, {
             expiresIn: 1800 // expires in 30 minutes
         });
+
+        return res.json({
+            status: 200,
+            data: {
+                email: email,
+                token: token
+            }
+        })
 
     }
     async getUsers(req, res) {
