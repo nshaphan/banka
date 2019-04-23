@@ -4,9 +4,14 @@ import config from '../config/config'
 export default (req, res, next) => {
     let token = req.headers['x-access-token'];
 
-    if(!token)
-        req.body.user.role = 'public';
-        next();
+    if(!token){
+        let user = {
+            role: 'public'
+        }
+        req.body.user = user;
+        return next();
+    }
+        
     
     // verify secret and checks exp
     jwt.verify(token, config.secret, function(err, decoded) {

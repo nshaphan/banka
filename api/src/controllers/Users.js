@@ -4,6 +4,7 @@ import db from '../helpers/queryHelper'
 
 class UsersController {
 
+    // First time admin account setup
     async firstTimeSetup(req, res) {
         const userQuery = "SELECT * FROM users WHERE isadmin = true"; 
         try {
@@ -21,8 +22,9 @@ class UsersController {
             });
         }
 
-        let email = req.body;
+        let { email } = req.body;
 
+        // setting up temporal access token to create an admin user
         let token = jwt.sign({ email }, config.secret, {
             expiresIn: 1800 // expires in 30 minutes
         });
@@ -33,7 +35,7 @@ class UsersController {
                 email: email,
                 token: token
             }
-        })
+        });
 
     }
     async getUsers(req, res) {
@@ -81,7 +83,7 @@ class UsersController {
         user.lastname = lastname;
         user.password = password;
 
-        if(req.body.user.superuser) {
+        if(req.body.user) {
             user.type = req.body.type;
             user.isadmin = req.body.isadmin;
         } else {
