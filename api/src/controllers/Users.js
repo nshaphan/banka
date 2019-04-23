@@ -4,6 +4,31 @@ import db from '../helpers/queryHelper'
 
 class UsersController {
 
+    async firstTimeSetup(req, res) {
+        const userQuery = "SELECT * FROM users WHERE isadmin = true"; 
+        try {
+            let { rowCount } = await db.query(userQuery, [email]);
+            if(rowCount > 0) {
+                return res.status(400).json({
+                    status: 400,
+                    error: "User already exists"
+                });
+            }
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to retieve users, try again"
+            });
+        }
+
+        let email = req.body;
+
+        let token = jwt.sign({ email }, config.secret, {
+            expiresIn: 1800 // expires in 30 minutes
+        });
+
+    }
     async getUsers(req, res) {
         const usersQuery = "SELECT * FROM users";
         try {
@@ -49,7 +74,7 @@ class UsersController {
         user.lastname = lastname;
         user.password = password;
 
-        if(req.body.user) {
+        if(req.body.user.superuser) {
             user.type = req.body.type;
             user.isadmin = req.body.isadmin;
         } else {

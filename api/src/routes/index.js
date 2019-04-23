@@ -39,6 +39,7 @@ router.get(base_url +"/users", verifyToken, authorize([
 
 router.post(base_url +'/auth/signup', userSignUpRequest, usersController.signup);
 router.post(base_url +'/auth/signin', signinRequest, usersController.signin);
+router.post(base_url +'/auth/admin/setup', usersController.firstTimeSetup)
 
 router.get(base_url +"/accounts", verifyToken, authorize([
     roles.cashier, 
