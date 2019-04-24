@@ -43,7 +43,7 @@
     "clean": "rm -rf build && mkdir build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "compile": "./node_modules/.bin/babel ./api/src -d ./build",
-    "build": "NODE_ENV=production npm run create && npm run clean && npm run compile",
+    "build": "npm run create && npm run clean && npm run compile",
     "create": "babel-node ./api/src/database/db createTables",
     "seedDB": "babel-node ./api/src/database/seeds initializeDB",
     "start": "NODE_ENV=production node -r ./node_modules/dotenv/config build/index"
