@@ -2,6 +2,14 @@ import { Pool } from 'pg';
 
 let connString = process.env.DATABASE_URL;
 
+if(process.env.NODE_ENV === 'testing') {
+    connString = process.env.TEST_DB_URL;
+}
+console.log(connString);
+// if(process.env.NODE_ENV === 'staging') {
+//     connString = process.env.TEST_DB_URL;
+// }
+
 const pool = new Pool({
     connectionString: connString
 });
