@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken'
 import config from '../config/config'
 import db from '../helpers/queryHelper'
 import bcrypt from 'bcrypt'
-import '@babel/polyfill'
 
 class UsersController {
 
