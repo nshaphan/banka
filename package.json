@@ -4,6 +4,7 @@
   "description": "Core banking app",
   "main": "index.js",
   "dependencies": {
+    "@babel/polyfill": "^7.4.3",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
@@ -23,7 +24,6 @@
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
-    "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/register": "^7.4.0",
     "nodemon": "^1.18.10",
