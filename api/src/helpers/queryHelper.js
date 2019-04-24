@@ -1,6 +1,7 @@
 import { Pool } from 'pg';
 
-let connString = 'postgres://bankadb_admin:banka@127.0.0.1:5432/banka';
+let connString = process.env.DATABASE_URL;
+
 const pool = new Pool({
     connectionString: connString
 });

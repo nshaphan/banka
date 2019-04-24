@@ -36,16 +36,16 @@
     "nyc": "^13.3.0"
   },
   "scripts": {
-    "server:start": "./node_modules/.bin/babel-node ./api/src/index --exit",
-    "server:watch": "nodemon --exec babel-node -- ./api/src/index",
-    "test": "nyc --reporter=html --reporter=text mocha ./api/src/tests/*.js --require @babel/polyfill --require @babel/register  --timeout 5000 --exit",
+    "server:start": "./node_modules/.bin/babel-node -r ./node_modules/dotenv/config ./api/src/index --exit",
+    "server:watch": "nodemon --exec babel-node -r ./node_modules/dotenv/config ./api/src/index",
+    "test": "nyc --reporter=html --reporter=text mocha -r ./node_modules/dotenv/config ./api/src/tests/*.js --require @babel/polyfill --require @babel/register  --timeout 5000 --exit",
     "clean": "rm -rf build && mkdir build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "compile": "./node_modules/.bin/babel ./api/src -d ./build",
-    "build": "npm run clean && npm run compile",
+    "build": "npm run clean && npm run compile && npm run create",
     "create": "babel-node ./api/src/database/db createTables",
     "seedDB": "babel-node ./api/src/database/seeds initializeDB",
-    "start": "node build/index.js"
+    "start": "node -r ./node_modules/dotenv/config build/index.js"
   },
   "repository": {
     "type": "git",
