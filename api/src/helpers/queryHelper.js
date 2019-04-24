@@ -15,7 +15,8 @@ console.log(connString);
 // }
 
 const pool = new Pool({
-    connectionString: connString
+    connectionString: connString,
+    ssl: true
 });
 
 export default {
