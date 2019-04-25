@@ -8,10 +8,10 @@ if(process.env.NODE_ENV === 'testing') {
 }
 
 if(process.env.NODE_ENV === 'staging') {
-    connString = process.env.HEROKU_POSTGRESQL_OLIVE_URL;
+    connString = process.env.DATABASE_URL;
     ssl = true;
 }
-console.log(connString);
+// console.log(connString);
 // if(process.env.NODE_ENV === 'staging') {
 //     connString = process.env.TEST_DB_URL;
 // }
