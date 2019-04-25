@@ -61,6 +61,14 @@ router.get(base_url +"/accounts", verifyToken, authorize([
     roles.admin
 ]), accountsController.getAccounts);
 
+router.get(base_url +"/accounts/:accountNumber", verifyToken, authorize([
+    roles.cashier, 
+    roles.admin,
+    roles.client
+]), accountsController.accountDetails);
+
+
+
 router.post(base_url +"/accounts", verifyToken, authorize([
     roles.client
 ]), accountsController.accountCreate);

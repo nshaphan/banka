@@ -1,13 +1,15 @@
 import { Pool } from 'pg';
 
 let connString = process.env.DATABASE_URL;
+let ssl = false;
 
 if(process.env.NODE_ENV === 'testing') {
     connString = process.env.TEST_DB_URL;
 }
 
 if(process.env.NODE_ENV === 'staging') {
-    connString = process.env.HEROKU_POSTGRESQL_OLIVE_URL
+    connString = process.env.HEROKU_POSTGRESQL_OLIVE_URL;
+    ssl = true;
 }
 console.log(connString);
 // if(process.env.NODE_ENV === 'staging') {
@@ -16,7 +18,7 @@ console.log(connString);
 
 const pool = new Pool({
     connectionString: connString,
-    ssl: true
+    ssl: ssl
 });
 
 export default {
