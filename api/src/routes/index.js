@@ -71,15 +71,14 @@ router.get(base_url +"/accounts/:accountNumber", verifyToken, authorize([
     roles.client
 ]), accountsController.accountDetails);
 
-
-
 router.post(base_url +"/accounts", verifyToken, authorize([
     roles.client
 ]), accountsController.accountCreate);
 
-router.post(base_url +"/accounts/:accountNumber/transactions", verifyToken, authorize([
+router.get(base_url +"/accounts/:accountNumber/transactions", verifyToken, authorize([
     roles.client
-]), accountsController.accountCreate);
+]), accountsController.getAccountTransactions);
+
 router.patch(base_url +'/account/:accountNumber', verifyToken, authorize([
     roles.cashier, 
     roles.admin
