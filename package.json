@@ -44,7 +44,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "compile": "./node_modules/.bin/babel ./api/src -d ./build",
     "build": "npm run create && npm run clean && npm run compile",
-    "create": "babel-node ./api/src/database/db createTables",
+    "create": "babel-node -r ./node_modules/dotenv/config ./api/src/database/db createTables",
     "seedDB": "babel-node -r ./node_modules/dotenv/config ./api/src/database/seeds initializeDB",
     "start": "NODE_ENV=production node -r ./node_modules/dotenv/config build/index"
   },

@@ -16,7 +16,7 @@ if(process.env.NODE_ENV === 'seeding') {
     connString = process.env.HEROKU_TEST_DB;
     ssl = true;
 }
-console.log(process.env.HEROKU_TEST_DB);
+console.log(connString);
 // if(process.env.NODE_ENV === 'staging') {
 //     connString = process.env.TEST_DB_URL;
 // }
