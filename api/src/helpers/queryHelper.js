@@ -7,7 +7,7 @@ if(process.env.NODE_ENV === 'testing') {
 }
 
 if(process.env.NODE_ENV === 'staging') {
-    connString = 'postgres://lwgvvnhnjwznxn:c40771d3f01dab3e29cb76d5ece5c0cdfadc1dfcf0c2c8a28b6b8d2f62c05554@ec2-54-243-241-62.compute-1.amazonaws.com:5432/d8jq1s1se94daa&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory';
+    connString = process.env.HEROKU_POSTGRESQL_OLIVE_URL
 }
 console.log(connString);
 // if(process.env.NODE_ENV === 'staging') {
