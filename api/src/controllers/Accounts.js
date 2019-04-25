@@ -321,6 +321,36 @@ class AccountsController {
             });
         }
     }
+
+    async accountDetails() {
+        const accountsQuery = `SELECT * FROM accounts WHERE accountNumber = $1` ;
+
+        const { accountNumber } = req.params;
+        const values = [
+            accountNumber
+        ];
+        try {
+            // query database for accounts
+            const { rows, rowCount } = await db.query(accountsQuery, values); 
+
+            if(rowCount == 0) {
+                return res.json({
+                    status: 200,
+                    data: rows[0]
+                })
+            }
+            return res.status(200).send({ 
+                status: 200,
+                data: rows   
+            });
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to retieve accounts, try again"
+            });
+        }
+    }
  
 }
 
