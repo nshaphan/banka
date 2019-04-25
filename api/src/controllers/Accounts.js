@@ -291,7 +291,6 @@ class AccountsController {
      * @param {Object} res 
      */
     async getAccountsByEmail(req, res) {
-
         const accountsQuery = `SELECT accounts.* FROM accounts, users
         WHERE accounts.owner = users.id AND users.email = $1` ;
 
@@ -309,10 +308,6 @@ class AccountsController {
                     data: rows
                 })
             }
-            return res.status(200).send({ 
-                status: 200,
-                data: rows   
-            });
         } catch(error) {
             console.log(error);
             return res.status(400).send({

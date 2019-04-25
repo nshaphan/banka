@@ -8,6 +8,10 @@ import verifyToken from '../middlewares/verifyToken';
 import banka from '../db/db'
 import roles from '../helpers/roles';
 import authorize from '../middlewares/authorize';
+import verifySuperToken from '../middlewares/verifySuperToken';
+
+// demo 
+// import Device from '../demos/oop'; 
 // import users from '../controllers/test';
 
 const router = express.Router();
@@ -41,7 +45,15 @@ router.get(base_url +'/user/:email/accounts', verifyToken, authorize([
     roles.client
 ]), accountsController.getAccountsByEmail);
 router.post(base_url +'/auth/signup', userSignUpRequest, usersController.signup);
+
+router.post(base_url +'/auth/signup', verifySuperToken, authorize([
+    roles.public,
+    roles.superuser
+]), userSignUpRequest, usersController.signup);
+
+
 router.post(base_url +'/auth/signin', signinRequest, usersController.signin);
+router.post(base_url +'/auth/admin/setup', usersController.firstTimeSetup)
 
 router.get(base_url +"/accounts", verifyToken, authorize([
     roles.cashier, 
@@ -95,5 +107,7 @@ router.post(base_url +'/transactions/:accountNumber/credit', verifyToken, author
     roles.cashier
 ]), transactionsController.creditAccount);
 
+// OOP Demos
+//router.get('/demo/oop', Device.demo);
 
 export default router;

@@ -1,9 +1,44 @@
 import jwt from 'jsonwebtoken'
 import config from '../config/config'
 import db from '../helpers/queryHelper'
+import bcrypt from 'bcrypt'
 
 class UsersController {
 
+    // First time admin account setup
+    async firstTimeSetup(req, res) {
+        const userQuery = "SELECT * FROM users WHERE isadmin = true"; 
+        try {
+            let { rowCount } = await db.query(userQuery);
+            
+            if(rowCount > 0) {
+                return res.status(401).json({ message: 'Unauthorized access, authenticate as asdmin, please!' });
+            }
+
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Authentication failed, try again"
+            });
+        }
+
+        let { email } = req.body;
+
+        // setting up temporal access token to create an admin user
+        let token = jwt.sign({ email }, config.secret, {
+            expiresIn: 1800 // expires in 30 minutes
+        });
+
+        return res.json({
+            status: 200,
+            data: {
+                email: email,
+                token: token
+            }
+        });
+
+    }
     async getUsers(req, res) {
         const usersQuery = "SELECT * FROM users";
         try {
@@ -49,15 +84,15 @@ class UsersController {
         user.lastname = lastname;
         user.password = password;
 
-        if(req.body.user) {
+        if(req.body.user.role != 'public') {
             user.type = req.body.type;
             user.isadmin = req.body.isadmin;
         } else {
             user.type = 'client'
             user.isadmin = false;
+            
         }
         
-
         // Generating token to authenticate the user
         var role = user.type;
         if(user.isadmin == true) {
@@ -70,11 +105,13 @@ class UsersController {
         users(email, firstname, lastname, password, type, isAdmin)
         VALUES($1, $2, $3, $4, $5, $6) returning *`;
 
+        var passwordHash = bcrypt.hashSync(password, 10);
+
         const values = [
             user.email,
             user.firstname,
             user.lastname,
-            user.password,
+            passwordHash,
             user.type,
             user.isadmin
         ]
@@ -114,18 +151,28 @@ class UsersController {
         const { email, password } = req.body;
 
         // find user with provided credentials 
-        const userQuery = "SELECT * FROM users WHERE email = $1 AND password = $2"; 
+        const userQuery = "SELECT * FROM users WHERE email = $1"; 
         
         let user = {}
         try {
-            let { rows, rowCount } = await db.query(userQuery, [email, password]);
+            let { rows, rowCount } = await db.query(userQuery, [email]);
+            user = rows[0];
             if(rowCount <= 0) {
                 return res.status(400).json({
                     status: 400,
                     message: 'Invalid email or password'
                 });
             }
-            user = rows[0];            
+
+            let passwordHash = user.password;
+            let isValidPassword = bcrypt.compareSync(password, passwordHash);
+
+            if(!isValidPassword) {
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Invalid email or password'
+                });
+            }                 
         } catch(error) {
             console.log(error);
             return res.status(400).send({
