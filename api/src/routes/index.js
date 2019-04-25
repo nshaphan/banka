@@ -44,18 +44,18 @@ router.get(base_url +"/users", verifyToken, authorize([
 router.get(base_url +'/user/:email/accounts', verifyToken, authorize([
     roles.client
 ]), accountsController.getAccountsByEmail);
-router.post(base_url +'/auth/signup', userSignUpRequest, usersController.signup);
 
 router.post(base_url +'/auth/signup', verifySuperToken, authorize([
     roles.public,
-    roles.superuser
+    roles.superuser,
+    roles.admin
 ]), userSignUpRequest, usersController.signup);
 
 router.get(base_url +'/user/:email/accounts', verifyToken, authorize([
     roles.client
 ]), accountsController.getAccountsByEmail);
 
-router.post(base_url +'/auth/signup', userSignUpRequest, usersController.signup);
+// router.post(base_url +'/auth/signup', userSignUpRequest, verifySuperToken, usersController.signup);
 
 router.post(base_url +'/auth/signin', signinRequest, usersController.signin);
 router.post(base_url +'/auth/admin/setup', usersController.firstTimeSetup)
@@ -75,13 +75,10 @@ router.post(base_url +"/accounts", verifyToken, authorize([
     roles.client
 ]), accountsController.accountCreate);
 
-router.get(base_url +"/accounts/:accountNumber/transactions", verifyToken, authorize([
-    roles.client
-]), accountsController.getAccountTransactions);
-
 router.patch(base_url +'/account/:accountNumber', verifyToken, authorize([
     roles.cashier, 
-    roles.admin
+    roles.admin,
+    roles.cashier
 ]), accountsController.toggleStatus);
 
 router.delete(base_url +'/accounts/:accountNumber', verifyToken, authorize([

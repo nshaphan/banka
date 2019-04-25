@@ -3,7 +3,7 @@ import config from '../config/config'
 
 export default (req, res, next) => {
     let token = req.headers['x-access-token'];
-
+    
     if(!token){
         let user = {
             role: 'public'
@@ -12,7 +12,7 @@ export default (req, res, next) => {
         return next();
     }
         
-    
+
     // verify secret and checks exp
     jwt.verify(token, config.secret, function(err, decoded) {
         if(err)
@@ -21,8 +21,6 @@ export default (req, res, next) => {
                 message: 'Failed to authenticate token.'
             });
 
-        
-        
         req.body.user = decoded;
         next();
     });

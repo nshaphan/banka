@@ -1,4 +1,3 @@
-import banka from '../db/db';
 import accountHelper from "../helpers/AccountHelper";
 import db from "../helpers/queryHelper";
 
