@@ -13,10 +13,10 @@ if(process.env.NODE_ENV === 'staging') {
 }
 
 if(process.env.NODE_ENV === 'seeding') {
-    connString = process.env.DATABASE_URL;
+    connString = process.env.HEROKU_TEST_DB;
     ssl = true;
 }
-// console.log(connString);
+console.log(process.env.HEROKU_TEST_DB);
 // if(process.env.NODE_ENV === 'staging') {
 //     connString = process.env.TEST_DB_URL;
 // }

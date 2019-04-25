@@ -15,7 +15,7 @@ describe("POST /transactions/<account-number>/credit", () => {
     before((done) => {
         request(app)
         .post(base_url +'/auth/signin')
-        .send({email: 'cashier@banka.com', password: '123456Bk'})
+        .send({email: 'cashier@banka.com', password: '1234567@Bk'})
         .then((res) => {
             token = res.body.data.token;
         })
@@ -40,7 +40,7 @@ describe("POST /transactions/<account-number>/debit", () => {
     before((done) => {
         request(app)
         .post(base_url +'/auth/signin')
-        .send({email: 'cashier@banka.com', password: '123456Bk'})
+        .send({email: 'cashier@banka.com', password: '1234567@Bk'})
         .end((err, res) => {
             token = res.body.data.token;
             done();
@@ -65,7 +65,7 @@ describe("GET /accounts/<account-number>/transactions", () => {
     before((done) => {
         request(app)
         .post(base_url +'/auth/signin')
-        .send({email: 'cashier@banka.com', password: '123456Bk'})
+        .send({email: 'cashier@banka.com', password: '1234567@Bk'})
         .then((res) => {
             token = res.body.data.token;
         })
@@ -91,7 +91,7 @@ describe("GET /transactions/<transaction-id>", () => {
     before((done) => {
         request(app)
         .post(base_url +'/auth/signin')
-        .send({email: 'cashier@banka.com', password: '123456Bk'})
+        .send({email: 'cashier@banka.com', password: '1234567@Bk'})
         .then((res) => {
             token = res.body.data.token;
         })
