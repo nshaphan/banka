@@ -1,4 +1,5 @@
-import db from '../helpers/queryHelper';
+import db from '../helpers/queryHelper'
+import bcrypt from 'bcrypt'
 
 /**
  * Insert multiple values in table
@@ -21,6 +22,10 @@ const insert = async (query, values) => {
  * @returns void
  */
 const initializeDB = async () => {
+
+    //password hash
+    var passwordHash = bcrypt.hashSync('1234567@Bk', 10);
+
     // User SQL query
     const userQuery = `INSERT INTO 
     users(email, firstname, lastname, password, type, isAdmin)
@@ -30,7 +35,7 @@ const initializeDB = async () => {
             'admin@banka.com',
             'kwizera',
             'eric',
-            '123456Bk',
+            passwordHash,
             'staff',
             true
         ],
@@ -38,7 +43,7 @@ const initializeDB = async () => {
             'cashier@banka.com',
             'Angel',
             'Umutoni',
-            '123456Bk',
+            passwordHash,
             'staff',
             false
         ],
@@ -46,7 +51,7 @@ const initializeDB = async () => {
             'user@banka.com',
             'Shaphan',
             'Nzabonimana',
-            '123456Bk',
+            passwordHash,
             'client',
             false
         ]];
@@ -98,6 +103,6 @@ const initializeDB = async () => {
     
 }
 
-export { initializeDB, db };
+export { initializeDB, db, bcrypt };
 
 require('make-runnable');

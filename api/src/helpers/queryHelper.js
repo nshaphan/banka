@@ -11,6 +11,11 @@ if(process.env.NODE_ENV === 'staging') {
     connString = process.env.DATABASE_URL;
     ssl = true;
 }
+
+if(process.env.NODE_ENV === 'seeding') {
+    connString = process.env.DATABASE_URL;
+    ssl = true;
+}
 // console.log(connString);
 // if(process.env.NODE_ENV === 'staging') {
 //     connString = process.env.TEST_DB_URL;
