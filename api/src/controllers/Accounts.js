@@ -292,13 +292,25 @@ class AccountsController {
      */
     async getAccountsByEmail(req, res) {
 
-        const accountsQuery = "SELECT * FROM accounts ";
+        const accountsQuery = `SELECT accounts.* FROM accounts, users
+        WHERE accounts.owner = users.id AND users.email = $1` ;
+
+        const { email } = req.params;
+        const values = [
+            email
+        ];
         try {
             // query database for accounts
-            const { rows, rowCount } = await db.query(accountsQuery);
+            const { rows, rowCount } = await db.query(accountsQuery, values); 
+
+            if(rowCount == 0) {
+                return res.json({
+                    status: 200,
+                    data: rows
+                })
+            }
             return res.status(200).send({ 
                 status: 200,
-                rows: rowCount,
                 data: rows   
             });
         } catch(error) {
