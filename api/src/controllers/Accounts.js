@@ -298,13 +298,29 @@ class AccountsController {
      */
     async getAccountsByEmail(req, res) {
 
-        const accountsQuery = `SELECT accounts.* FROM accounts, users
-        WHERE accounts.owner = users.id AND users.email = $1` ;
+        let currentUser = req.body.user;
+        
+        let accountsQuery = `SELECT accounts.* FROM accounts, users
+        WHERE accounts.owner = users.id`;
 
+        let values;
         const { email } = req.params;
-        const values = [
-            email
-        ];
+
+        if(currentUser.role == 'client') {
+            accountsQuery +=` AND ( users.email = $1 AND users.id = $2 ) `;
+
+            values = [
+                email,
+                currentUser.id
+            ];
+            
+        } else {
+            accountsQuery + ` users.email = $1`;
+            values = [
+                email
+            ];
+        }
+
         try {
             // query database for accounts
             const { rows, rowCount } = await db.query(accountsQuery, values); 
