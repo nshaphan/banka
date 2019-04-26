@@ -51,12 +51,6 @@ router.post(base_url +'/auth/signup', verifySuperToken, authorize([
     roles.admin
 ]), userSignUpRequest, usersController.signup);
 
-router.get(base_url +'/user/:email/accounts', verifyToken, authorize([
-    roles.client
-]), accountsController.getAccountsByEmail);
-
-// router.post(base_url +'/auth/signup', userSignUpRequest, verifySuperToken, usersController.signup);
-
 router.post(base_url +'/auth/signin', signinRequest, usersController.signin);
 router.post(base_url +'/auth/admin/setup', usersController.firstTimeSetup)
 

@@ -19,7 +19,6 @@ describe("POST /accounts", () => {
         .send({email: 'user@banka.com', password: '1234567@Bk'})
         .end((err, res) => {
             token = res.body.data.token;
-            console.log(res.body);
             done();
         });
     });
