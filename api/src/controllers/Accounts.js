@@ -1,4 +1,3 @@
-import banka from '../db/db';
 import accountHelper from "../helpers/AccountHelper";
 import db from "../helpers/queryHelper";
 
@@ -11,7 +10,13 @@ class AccountsController {
      */
     async getAccounts(req, res) {
 
-        const accountsQuery = "SELECT * FROM accounts";
+        let accountsQuery = "SELECT * FROM accounts";
+        let { status } = req.query;
+
+        if(status) {
+            accountsQuery = accountsQuery + " WHERE status = '"+ status +"'";
+        }
+
         try {
             // query database for accounts
             const { rows, rowCount } = await db.query(accountsQuery);
@@ -125,7 +130,8 @@ class AccountsController {
         
         let account = {}
         // find account index using account number
-        const accountQuery = "SELECT * FROM accounts WHERE accountNumber = $1"; 
+        const accountQuery = "SELECT * FROM accounts WHERE accountNumber = $1";
+
         try {
             let { rows, rowCount } = await db.query(accountQuery, [accountNumber]);
             if(rowCount <= 0) {
@@ -291,14 +297,26 @@ class AccountsController {
      * @param {Object} res 
      */
     async getAccountsByEmail(req, res) {
-        
-        const accountsQuery = "SELECT * FROM accounts WHERE email = $1";
+
+        const accountsQuery = `SELECT accounts.* FROM accounts, users
+        WHERE accounts.owner = users.id AND users.email = $1` ;
+
+        const { email } = req.params;
+        const values = [
+            email
+        ];
         try {
             // query database for accounts
-            const { rows, rowCount } = await db.query(accountsQuery);
+            const { rows, rowCount } = await db.query(accountsQuery, values); 
+
+            if(rowCount == 0) {
+                return res.json({
+                    status: 200,
+                    data: rows
+                })
+            }
             return res.status(200).send({ 
                 status: 200,
-                rows: rowCount,
                 data: rows   
             });
         } catch(error) {
@@ -306,6 +324,41 @@ class AccountsController {
             return res.status(400).send({
                 status: 400,
                 message: "Unable to retieve accounts, try again"
+            });
+        }
+    }
+
+    /**
+     * Get a specific account details
+     * @param {Object} req
+     * @param {Object} res 
+     */
+    async accountDetails(req, res) {
+        const accountsQuery = `SELECT * FROM accounts WHERE accountNumber = $1` ;
+
+        const { accountNumber } = req.params;
+        const values = [
+            accountNumber
+        ];
+        try {
+            // query database for accounts
+            const { rows, rowCount } = await db.query(accountsQuery, values); 
+
+            if(rowCount == 0) {
+                return res.json({
+                    status: 200,
+                    data: rows[0]
+                })
+            }
+            return res.status(200).send({ 
+                status: 200,
+                data: rows   
+            });
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Unable to retieve account, try again"
             });
         }
     }

@@ -1,6 +1,7 @@
-import express from 'express';
-import router from './routes/index';
-import { json, urlencoded } from 'body-parser';
+import express from 'express'
+import router from './routes/index'
+import { json, urlencoded } from 'body-parser'
+import '@babel/polyfill'
 
 var app = express();
 

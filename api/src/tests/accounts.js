@@ -16,7 +16,7 @@ describe("POST /accounts", () => {
     before((done) => {
         request(app)
         .post(base_url +'/auth/signin')
-        .send({email: 'user@banka.com', password: '123456Bk'})
+        .send({email: 'user@banka.com', password: '1234567@Bk'})
         .end((err, res) => {
             token = res.body.data.token;
             done();
@@ -44,7 +44,7 @@ describe("PATCH /account/<account-number>", () => {
     before((done) => {
         request(app)
         .post(base_url +'/auth/signin')
-        .send({email: 'admin@banka.com', password: '123456Bk'})
+        .send({email: 'admin@banka.com', password: '1234567@Bk'})
         .end((err, res) => {
             token = res.body.data.token;
             done();
@@ -79,7 +79,7 @@ describe("DELETE /accounts/<account-number>", () => {
     before((done) => {
         request(app)
         .post(base_url +'/auth/signin')
-        .send({email: 'admin@banka.com', password: '123456Bk'})
+        .send({email: 'admin@banka.com', password: '1234567@Bk'})
         .then((res) => {
             token = res.body.data.token;
         })
@@ -106,82 +106,4 @@ describe("DELETE /accounts/<account-number>", () => {
             .then(done, done);
     });
 
-});
-
-describe("GET /accounts/<account-number>/transactions", () => {
-
-    before((done) => {
-        request(app)
-        .post(base_url +'/auth/signin')
-        .send({email: 'cashier@banka.com', password: '123456Bk'})
-        .then((res) => {
-            token = res.body.data.token;
-        })
-        .then(done, done);
-    });
-
-    
-    it("Should be able to return account transactions", (done) => {
-        request(app)
-            .post(base_url +'/accounts/20183444096/transactions')
-            .set('x-access-token', token)
-            .then((res) => {
-                expect(res.body).to.be.an('object');
-                expect(res.body).to.have.property('status').eql(200);
-                expect(res.body).to.have.property('data');
-            })
-            .then(done, done);
-    });
-});
-
-describe("GET /users/<user-email-address>/accounts", () => {
-
-    before((done) => {
-        request(app)
-        .post(base_url +'/auth/signin')
-        .send({email: 'cashier@banka.com', password: '123456Bk'})
-        .then((res) => {
-            token = res.body.data.token;
-        })
-        .then(done, done);
-    });
-
-    
-    it("Should be able to return all accounts owned by a specific user", (done) => {
-        request(app)
-            .post(base_url +'/user/user@banka/accounts')
-            .set('x-access-token', token)
-            .then((res) => {
-                expect(res.body).to.be.an('object');
-                expect(res.body).to.have.property('status').eql(200);
-                expect(res.body).to.have.property('accounts');
-            })
-            .then(done, done);
-    });
-});
-
-describe("GET /users/<user-email-address>/accounts", () => {
-
-    before((done) => {
-        request(app)
-        .post(base_url +'/auth/signin')
-        .send({email: 'cashier@banka.com', password: '123456Bk'})
-        .then((res) => {
-            token = res.body.data.token;
-        })
-        .then(done, done);
-    });
-
-    
-    it("Should be able to return all accounts owned by a specific user", (done) => {
-        request(app)
-            .post(base_url +'/user/user@banka/accounts')
-            .set('x-access-token', token)
-            .then((res) => {
-                expect(res.body).to.be.an('object');
-                expect(res.body).to.have.property('status').eql(200);
-                expect(res.body).to.have.property('accounts');
-            })
-            .then(done, done);
-    });
 });

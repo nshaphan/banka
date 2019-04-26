@@ -1,8 +1,29 @@
 import { Pool } from 'pg';
 
-let connString = 'postgres://bankadb_admin:banka@127.0.0.1:5432/banka';
+let connString = process.env.DATABASE_URL;
+let ssl = false;
+
+if(process.env.NODE_ENV === 'testing') {
+    connString = process.env.TEST_DB_URL;
+}
+
+if(process.env.NODE_ENV === 'staging') {
+    connString = process.env.DATABASE_URL;
+    ssl = true;
+}
+
+if(process.env.NODE_ENV === 'seeding') {
+    connString = process.env.HEROKU_TEST_DB;
+    ssl = true;
+}
+console.log(connString);
+// if(process.env.NODE_ENV === 'staging') {
+//     connString = process.env.TEST_DB_URL;
+// }
+
 const pool = new Pool({
-    connectionString: connString
+    connectionString: connString,
+    ssl: ssl
 });
 
 export default {

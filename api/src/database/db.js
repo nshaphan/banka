@@ -1,4 +1,5 @@
 import db from '../helpers/queryHelper';
+require('dotenv').config();
 
 const createTables = async () => {
     const userTable = `CREATE TABLE IF NOT EXISTS

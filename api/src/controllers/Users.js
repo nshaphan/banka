@@ -16,7 +16,6 @@ class UsersController {
             }
 
         } catch(error) {
-            console.log(error);
             return res.status(400).send({
                 status: 400,
                 message: "Authentication failed, try again"
@@ -59,6 +58,8 @@ class UsersController {
 
     async signup(req, res) {
         let { email, firstname, lastname, password } = req.body;
+
+        // return res.json(req.body.user);
         const userQuery = "SELECT email FROM users WHERE email = $1"; 
         try {
             let { rowCount } = await db.query(userQuery, [email]);
@@ -84,11 +85,13 @@ class UsersController {
         user.lastname = lastname;
         user.password = password;
 
-        if(req.body.user.role != 'public') {
+        let userRole = req.body.user.role;
+        
+        if( userRole != 'public') {
             user.type = req.body.type;
             user.isadmin = req.body.isadmin;
         } else {
-            user.type = 'client'
+            user.type = 'client';
             user.isadmin = false;
             
         }

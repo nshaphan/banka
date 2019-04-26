@@ -300,9 +300,10 @@ class Transaction {
      * @param {Object} res 
      */
     async getAccountTransactions(req, res) {
+        
         const { accountNumber } = req.params;
         const transactionsQuery = "SELECT * FROM transactions WHERE accountnumber = $1";
-
+        return res.json({account: accountNumber});
         const values = [
             accountNumber    
         ];
