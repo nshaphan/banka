@@ -362,12 +362,6 @@ class AccountsController {
             // query database for accounts
             const { rows, rowCount } = await db.query(accountsQuery, values); 
 
-            if(rowCount == 0) {
-                return res.json({
-                    status: 200,
-                    data: rows[0]
-                })
-            }
             return res.status(200).send({ 
                 status: 200,
                 data: rows   
