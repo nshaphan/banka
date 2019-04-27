@@ -2,17 +2,13 @@ import express from 'express'
 import usersController from '../controllers/Users';
 import accountsController from '../controllers/Accounts';
 import transactionsController from '../controllers/Transactions';
-import userValidator from '../middlewares/userValidator';
-import signinValidator from '../middlewares/signinValidator';
-import verifyToken from '../middlewares/verifyToken';
+import userValidator from '../middlewares/userValidator'
+import signinValidator from '../middlewares/signinValidator'
+import verifyToken from '../middlewares/verifyToken'
 import banka from '../db/db'
-import roles from '../helpers/roles';
-import authorize from '../middlewares/authorize';
-import verifySuperToken from '../middlewares/verifySuperToken';
-
-// demo 
-// import Device from '../demos/oop'; 
-// import users from '../controllers/test';
+import roles from '../helpers/roles'
+import authorize from '../middlewares/authorize'
+import verifySuperToken from '../middlewares/verifySuperToken'
 
 const router = express.Router();
 
