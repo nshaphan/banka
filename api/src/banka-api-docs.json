@@ -57,11 +57,11 @@
           "401": {
             "description": "Unauthorized access, unauthorized token"
           },
-          "500": {
-            "description": "Internal Server Error"
-          },
           "403": {
             "description": "Forbidden, Invalid access token"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -103,7 +103,8 @@
     "/user/{email}/accounts": {
       "get": {
         "tags": [
-          "Accounts", "Users"
+          "Accounts",
+          "Users"
         ],
         "summary": "Get a specific user bank accounts",
         "operationId": "getEmailAccounts",
@@ -137,11 +138,11 @@
           "401": {
             "description": "Unauthorized access, unauthorized token"
           },
-          "500": {
-            "description": "Internal Server Error"
-          },
           "403": {
             "description": "Forbidden, Invalid access token"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -187,11 +188,11 @@
           "401": {
             "description": "Unauthorized access, unauthorized token"
           },
-          "500": {
-            "description": "Internal Server Error"
-          },
           "403": {
             "description": "Forbidden, Invalid access token"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -217,7 +218,10 @@
             "in": "query",
             "name": "status",
             "type": "string",
-            "enum": ["active", "dormant"],
+            "enum": [
+              "active",
+              "dormant"
+            ],
             "required": false,
             "description": "Filter accounts based on status (active/dormant)"
           }
@@ -232,11 +236,11 @@
           "401": {
             "description": "Unauthorized access, unauthorized token"
           },
-          "500": {
-            "description": "Internal Server Error"
-          },
           "403": {
             "description": "Forbidden, Invalid access token"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -330,9 +334,9 @@
         ],
         "parameters": [
           {
-            "name":"account status",
+            "name": "account status",
             "in": "body",
-            "description" :"Bank Account status(active or dormant)",
+            "description": "Bank Account status(active or dormant)",
             "schema": {
               "$ref": "#/definitions/accountStatus"
             }
@@ -362,11 +366,11 @@
           "401": {
             "description": "Unauthorized access, unauthorized token"
           },
-          "500": {
-            "description": "Internal Server Error"
-          },
           "403": {
             "description": "Forbidden, Invalid access token"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -444,19 +448,20 @@
           "401": {
             "description": "Unauthorized access, unauthorized token"
           },
-          "500": {
-            "description": "Internal Server Error"
-          },
           "403": {
             "description": "Forbidden, Invalid access token"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-     "/account/{accountNumber}/transactions": {
+    "/account/{accountNumber}/transactions": {
       "get": {
         "tags": [
-          "Accounts", "Transactions"
+          "Accounts",
+          "Transactions"
         ],
         "summary": "Get account's transactions",
         "operationId": "acountTransactions",
@@ -493,11 +498,11 @@
           "401": {
             "description": "Unauthorized access, unauthorized token"
           },
-          "500": {
-            "description": "Internal Server Error"
-          },
           "403": {
             "description": "Forbidden, Invalid access token"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -518,9 +523,9 @@
         ],
         "parameters": [
           {
-            "name":"amount",
+            "name": "amount",
             "in": "body",
-            "description" :"Amount to debit from the account",
+            "description": "Amount to debit from the account",
             "schema": {
               "$ref": "#/definitions/transaction"
             }
@@ -569,9 +574,9 @@
         ],
         "parameters": [
           {
-            "name":"amount",
+            "name": "amount",
             "in": "body",
-            "description" :"Amount to credit to the account",
+            "description": "Amount to credit to the account",
             "schema": {
               "$ref": "#/definitions/transaction"
             }
@@ -601,16 +606,15 @@
           "401": {
             "description": "Unauthorized access, unauthorized token"
           },
-          "500": {
-            "description": "Internal Server Error"
-          },
           "403": {
             "description": "Forbidden, Invalid access token"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
-    },
-    
+    }
   },
   "definitions": {
     "user": {
@@ -636,12 +640,14 @@
         },
         "type": {
           "type": "string",
-          "enum": ["staff", "client"]
+          "enum": [
+            "staff",
+            "client"
+          ]
         },
         "isadmin": {
           "type": "boolean"
         }
-        
       }
     },
     "login": {
@@ -661,7 +667,11 @@
     },
     "accountType": {
       "type": "object",
-      "enum": ["savings", "current", "loan"],
+      "enum": [
+        "savings",
+        "current",
+        "loan"
+      ],
       "required": [
         "type"
       ],
@@ -673,7 +683,10 @@
     },
     "accountStatus": {
       "type": "object",
-      "enum": ["active", "dormant"],
+      "enum": [
+        "active",
+        "dormant"
+      ],
       "required": [
         "status"
       ],
