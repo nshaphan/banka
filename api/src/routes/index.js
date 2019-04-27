@@ -2,17 +2,12 @@ import express from 'express'
 import usersController from '../controllers/Users';
 import accountsController from '../controllers/Accounts';
 import transactionsController from '../controllers/Transactions';
-import userValidator from '../middlewares/userValidator';
-import signinValidator from '../middlewares/signinValidator';
-import verifyToken from '../middlewares/verifyToken';
-import banka from '../db/db'
-import roles from '../helpers/roles';
-import authorize from '../middlewares/authorize';
-import verifySuperToken from '../middlewares/verifySuperToken';
-
-// demo 
-// import Device from '../demos/oop'; 
-// import users from '../controllers/test';
+import userValidator from '../middlewares/userValidator'
+import signinValidator from '../middlewares/signinValidator'
+import verifyToken from '../middlewares/verifyToken'
+import roles from '../helpers/roles'
+import authorize from '../middlewares/authorize'
+import verifySuperToken from '../middlewares/verifySuperToken'
 
 const router = express.Router();
 
@@ -23,18 +18,8 @@ const base_url = '/api/'+ api_version;
 const userSignUpRequest = userValidator();
 const signinRequest = signinValidator();
 
-
-router.get(base_url +'/me', verifyToken, authorize([
-    roles.client, 
-    roles.admin, 
-    roles.cashier
-]), (req, res) => {
-        let id = req.body.user.id;
-        var userIndex = banka.users.findIndex((user) => user.id == id);
-        res.json(banka.users[userIndex]);
-    });
-
-// router.get(base_url, users.create);
+router.get('/', (req, res) => res.redirect(base_url +'/docs'));
+router.get('/api/v1', (req, res) => res.redirect(base_url +'/docs'));
 
 router.get(base_url +"/users", verifyToken, authorize([
     roles.cashier, 
