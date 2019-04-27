@@ -15,7 +15,11 @@ const base_url = '/api/'+ api_version;
 
 app.use(json());
 app.use(urlencoded({extended: true}));
-app.use(base_url +'/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+var options = {
+    explorer : true
+};
+app.use(base_url +'/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 app.use(router);
 
 app.listen( PORT, () => {
