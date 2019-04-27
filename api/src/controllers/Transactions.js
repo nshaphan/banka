@@ -301,12 +301,21 @@ class Transaction {
      */
     async getAccountTransactions(req, res) {
         
+        let currentUser = req.body.user;
         const { accountNumber } = req.params;
-        const transactionsQuery = "SELECT * FROM transactions WHERE accountnumber = $1";
-        return res.json({account: accountNumber});
+
         const values = [
-            accountNumber    
+            accountNumber
         ];
+
+        let transactionsQuery = `SELECT transactions.* FROM transactions, accounts 
+        WHERE accounts.accountnumber = transactions.accountnumber 
+        AND transactions.accountnumber = $1`;
+
+        if(currentUser.role == 'client') {
+            transactionsQuery +=`AND accounts.owner = $2 `;
+            values.push(currentUser.id);
+        }
 
         try {
             const { rows, rowCount } = await db.query(transactionsQuery, values);
@@ -330,12 +339,22 @@ class Transaction {
      * @param {Object} res 
      */
     async getTransactionById(req, res) {
+        let currentUser = req.body.user;
+
         const { transactionId } = req.params;
-        const transactionsQuery = "SELECT * FROM transactions WHERE id = $1";
+        
+        let transactionsQuery = `SELECT transactions.* FROM transactions, accounts 
+        WHERE accounts.accountnumber = transactions.accountnumber 
+        AND transactions.id = $1`;
 
         const values = [
             transactionId    
         ];
+
+        if(currentUser.role == 'client') {
+            transactionsQuery +=` AND accounts.owner = $2 `;
+            values.push(currentUser.id);
+        }
 
         try {
             const { rows } = await db.query(transactionsQuery, values);

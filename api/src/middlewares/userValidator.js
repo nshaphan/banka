@@ -23,7 +23,9 @@ const userSchema = joi.object().keys({
     firstname: name,
     lastname: name,
     email: email,
-    password: password
+    password: password,
+    type: joi.string().lowercase().valid(['staff', 'client']).label("type can be either staff or client"),
+    isadmin: joi.boolean().allow(true, false).label('isadmin can be either boolean true or false')
 });
 
 export default () => {

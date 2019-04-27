@@ -298,13 +298,23 @@ class AccountsController {
      */
     async getAccountsByEmail(req, res) {
 
-        const accountsQuery = `SELECT accounts.* FROM accounts, users
-        WHERE accounts.owner = users.id AND users.email = $1` ;
+        let currentUser = req.body.user;
+        
+        let accountsQuery = `SELECT accounts.* FROM accounts, users
+        WHERE accounts.owner = users.id`;
 
         const { email } = req.params;
-        const values = [
+        let values = [
             email
         ];
+
+        if(currentUser.role == 'client') {
+            accountsQuery +=` AND ( users.email = $1 AND users.id = $2 ) `;
+            values.push(currentUser.id);
+        } else {
+            accountsQuery + ` users.email = $1`;
+        }
+
         try {
             // query database for accounts
             const { rows, rowCount } = await db.query(accountsQuery, values); 
@@ -334,22 +344,24 @@ class AccountsController {
      * @param {Object} res 
      */
     async accountDetails(req, res) {
-        const accountsQuery = `SELECT * FROM accounts WHERE accountNumber = $1` ;
+        let currentUser = req.body.user;
+        let accountsQuery = `SELECT * FROM accounts WHERE accountNumber = $1` ;
 
         const { accountNumber } = req.params;
         const values = [
             accountNumber
         ];
+
+        if(currentUser.role == 'client') {
+            accountsQuery +=` AND owner = $2 `;
+            values.push(currentUser.id);
+        } else {
+            accountsQuery + ` users.email = $1`;
+        }
         try {
             // query database for accounts
             const { rows, rowCount } = await db.query(accountsQuery, values); 
 
-            if(rowCount == 0) {
-                return res.json({
-                    status: 200,
-                    data: rows[0]
-                })
-            }
             return res.status(200).send({ 
                 status: 200,
                 data: rows   
