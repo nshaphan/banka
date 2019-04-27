@@ -1,8 +1,8 @@
 import express from 'express'
 import router from './routes/index'
 import { json, urlencoded } from 'body-parser'
-import '@babel/polyfill'
 import swaggerUi from 'swagger-ui-express'
+import '@babel/polyfill'
 
 let swaggerDocument = require('./banka-api-docs.json');
 
