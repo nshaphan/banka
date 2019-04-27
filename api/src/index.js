@@ -4,7 +4,7 @@ import { json, urlencoded } from 'body-parser'
 import swaggerUi from 'swagger-ui-express'
 import '@babel/polyfill'
 
-let swaggerDocument = require('./banka-api-docs.json');
+let swaggerDocument = require('banka-api-docs.json');
 
 var app = express();
 
