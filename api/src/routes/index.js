@@ -19,7 +19,9 @@ const base_url = '/api/'+ api_version;
 const userSignUpRequest = userValidator();
 const signinRequest = signinValidator();
 
-
+router.get('/', function(req, res){
+    res.redirect(base_url +'/docs');
+});
 router.get(base_url +'/me', verifyToken, authorize([
     roles.client, 
     roles.admin, 

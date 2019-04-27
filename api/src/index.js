@@ -15,10 +15,14 @@ const base_url = '/api/'+ api_version;
 
 app.use(json());
 app.use(urlencoded({extended: true}));
+app.use(express.static('public'))
 
 var options = {
-    explorer : true
+    customSiteTitle: 'Banka API Documentation',
+    customCss: '.swagger-ui .topbar { display: none }',
+    customfavIcon: '/favicon-32x32.png'
 };
+
 app.use(base_url +'/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 app.use(router);
 
