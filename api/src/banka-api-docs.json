@@ -130,7 +130,46 @@
         ],
         "responses": {
           "200": {
-            "description": "User created successfully"
+            "description": "Accounts retrieved successfully"
+          },
+          "400": {
+            "description": "invalid input, enter valid information"
+          },
+          "401": {
+            "description": "Unauthorized access, unauthorized token"
+          },
+          "403": {
+            "description": "Forbidden, Invalid access token"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all users",
+        "operationId": "getUsers",
+        "description": "Retrieve all bank users",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-access-token",
+            "type": "string",
+            "required": true,
+            "description": "The token to authenticate user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All users retrieved successfully"
           },
           "400": {
             "description": "invalid input, enter valid information"
@@ -180,7 +219,7 @@
         ],
         "responses": {
           "200": {
-            "description": "User created successfully"
+            "description": "Account created successfully"
           },
           "400": {
             "description": "invalid input, enter valid information"
@@ -346,7 +385,7 @@
             "name": "accountNumber",
             "type": "integer",
             "required": true,
-            "description": "The account number to delete"
+            "description": "The account number to change status"
           },
           {
             "in": "header",
@@ -358,7 +397,7 @@
         ],
         "responses": {
           "200": {
-            "description": "User created successfully"
+            "description": "Status changed successfully successfully"
           },
           "400": {
             "description": "invalid input, enter valid information"
@@ -428,7 +467,7 @@
             "name": "accountNumber",
             "type": "integer",
             "required": true,
-            "description": "The account number to delete"
+            "description": "The account number to to get details"
           },
           {
             "in": "header",
