@@ -4,7 +4,7 @@ var bankaTest = {
             email: 'emmy@banka.com',
             firstname: 'Emmanuel',
             lastname: 'Twahirwa',
-            password: '12345Bkk',
+            password: '12345@Bkk',
         }
     ],
 

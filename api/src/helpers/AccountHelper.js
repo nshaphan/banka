@@ -1,4 +1,4 @@
-import banka from "../db/db"
+import db from "../helpers/queryHelper";
 
 class AccountHelper {
 
@@ -16,20 +16,19 @@ class AccountHelper {
     }
 
     // A function to verify if account exist and return the unique account
-    make() {
+    make(allAccounts) {
 
         let accountNumber = this.generate();
-        if (!this.isAccountExisting(accountNumber)) {
+        if (!this.isAccountExisting(accountNumber, allAccounts)) {
             return accountNumber;
         }
 
-        this.make();
+        this.make(allAccounts);
     }
 
     // a function to check if a function already exist
-    isAccountExisting(acc_number) {
-        let accounts = banka.accounts;
-        let foundAccount = accounts.find((account) => account.accountNumber === acc_number);
+    isAccountExisting(acc_number, allAccounts) {
+        let foundAccount = allAccounts.find((account) => account == acc_number);
 
         return (! foundAccount) ? false : true;
     }
