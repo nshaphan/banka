@@ -41,7 +41,8 @@ router.post(base_url +'/auth/admin/setup', usersController.firstTimeSetup)
 
 router.get(base_url +"/accounts", verifyToken, authorize([
     roles.cashier, 
-    roles.admin
+    roles.admin,
+    roles.client
 ]), accountsController.getAccounts);
 
 router.get(base_url +"/accounts/:accountNumber", verifyToken, authorize([
