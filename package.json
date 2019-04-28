@@ -41,7 +41,7 @@
     "server:start": "SET NODE_ENV=development&&./node_modules/.bin/babel-node -r ./node_modules/dotenv/config ./api/src/index --exit",
     "server:watch": "SET NODE_ENV=development&&nodemon --exec babel-node -r ./node_modules/dotenv/config ./api/src/index",
     "test:dev": "SET NODE_ENV=testing&&npm run resetDB&&npm run seedDB&&nyc --reporter=html --reporter=text mocha -r ./node_modules/dotenv/config ./api/src/tests/*.js --require @babel/register --require @babel/polyfill  --timeout 5000 --exit",
-    "test": "NODE_ENV=staging nyc --reporter=html --reporter=text mocha -r ./node_modules/dotenv/config ./api/src/tests/*.js --require @babel/register --require @babel/polyfill  --timeout 5000 --exit",
+    "test": "NODE_ENV=staging npm run resetDB && npm run seedDB && nyc --reporter=html --reporter=text mocha -r ./node_modules/dotenv/config ./api/src/tests/*.js --require @babel/register --require @babel/polyfill  --timeout 5000 --exit",
     "clean": "rm -rf build && mkdir build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "compile": "./node_modules/.bin/babel ./api/src -d ./build",
