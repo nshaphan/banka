@@ -90,12 +90,6 @@ class UsersController {
         
         if( userRole != 'public') {
             user.type = req.body.type;
-            if(!user.type || !user.isadmin) {
-                return res.json({
-                    status: 400,
-                    message: "type and isadmin need to be passed"
-                });
-            }
             user.isadmin = req.body.isadmin;
         } else {
             user.type = 'client';
