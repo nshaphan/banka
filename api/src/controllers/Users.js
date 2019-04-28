@@ -89,18 +89,19 @@ class UsersController {
         let userRole = req.body.user.role;
         
         if( userRole != 'public') {
-            user.type = req.body.type;
-            if(!user.type || !user.isadmin) {
+            if(req.body.isadmin == undefined || req.body.type == undefined) {
                 return res.json({
                     status: 400,
-                    message: "type and isadmin need to be passed"
-                });
+                    message: "Both isadmin and type need to be specified"
+                })
+            } else {
+                user.type = req.body.type
+                user.isadmin = req.body.isadmin;
             }
-            user.isadmin = req.body.isadmin;
+                
         } else {
             user.type = 'client';
-            user.isadmin = false;
-            
+            user.isadmin = false;  
         }
         
         // Generating token to authenticate the user
