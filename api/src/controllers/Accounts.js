@@ -9,22 +9,43 @@ class AccountsController {
      * @param {Object} res 
      */
     async getAccounts(req, res) {
+        let currentUser = req.body.user;
 
+        let values =[];
         let accountsQuery = "SELECT * FROM accounts";
         let { status } = req.query;
 
-        if(status) {
-            accountsQuery = accountsQuery + " WHERE status = '"+ status +"'";
+        if(status && currentUser.role == 'client') {
+            accountsQuery = accountsQuery + " WHERE status = $1 AND owner = $2";
+            values.push(status);
+            values.push(currentUser.id);
+        } else if (status) {
+            accountsQuery = accountsQuery + " WHERE status = $1 ";
+            values.push(status);
+        } else if(currentUser.role == 'client') {
+            accountsQuery +=" WHERE owner = $1 ";
+            values.push(currentUser.id);
         }
-
+        // console.log(accountsQuery, values);
         try {
             // query database for accounts
-            const { rows, rowCount } = await db.query(accountsQuery);
-            return res.status(200).send({ 
-                status: 200,
-                rows: rowCount,
-                data: rows   
-            });
+            if(values.length <= 0) {
+                const { rows, rowCount } = await db.query(accountsQuery);
+                return res.status(200).send({ 
+                    status: 200,
+                    rows: rowCount,
+                    data: rows   
+                });
+            } else {
+                const { rows, rowCount } = await db.query(accountsQuery, values);
+                return res.status(200).send({ 
+                    status: 200,
+                    rows: rowCount,
+                    data: rows   
+                });
+            }
+            
+            
         } catch(error) {
             console.log(error);
             return res.status(400).send({
@@ -68,8 +89,22 @@ class AccountsController {
         
         let account = {};
 
+        const allAccountsQuery = "SELECT accountNumber FROM accounts";
+
+        let allAccounts = [];
+        try {
+            let { rows } = await db.query(allAccountsQuery);          
+            rows.map(account => allAccounts.push(account.accountnumber));
+        } catch(error) {
+            console.log(error);
+            return res.status(400).send({
+                status: 400,
+                message: "Problem with server, try again"
+            });
+        }
+        
         // Generate new Account Number
-        account.accountNumber = accountHelper.make();
+        account.accountNumber = accountHelper.make(allAccounts);
         account.type = type;
         account.balance = 0;
         account.createdOn = new Date();
@@ -312,7 +347,7 @@ class AccountsController {
             accountsQuery +=` AND ( users.email = $1 AND users.id = $2 ) `;
             values.push(currentUser.id);
         } else {
-            accountsQuery + ` users.email = $1`;
+            accountsQuery += ` AND users.email = $1`;
         }
 
         try {

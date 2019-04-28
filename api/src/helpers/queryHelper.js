@@ -3,16 +3,16 @@ import { Pool } from 'pg';
 let connString = process.env.DATABASE_URL;
 let ssl = false;
 
-if(process.env.NODE_ENV === 'testing') {
+if(process.env.NODE_ENV == 'testing') {
     connString = process.env.TEST_DB_URL;
 }
 
-if(process.env.NODE_ENV === 'staging') {
+if(process.env.NODE_ENV == 'staging') {
     connString = process.env.DATABASE_URL;
     ssl = true;
 }
 
-if(process.env.NODE_ENV === 'seeding') {
+if(process.env.NODE_ENV == 'seeding') {
     connString = process.env.HEROKU_TEST_DB;
     ssl = true;
 }

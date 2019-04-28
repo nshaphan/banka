@@ -27,7 +27,9 @@ router.get(base_url +"/users", verifyToken, authorize([
 ]), usersController.getUsers);
 
 router.get(base_url +'/user/:email/accounts', verifyToken, authorize([
-    roles.client
+    roles.client,
+    roles.cashier,
+    roles.admin
 ]), accountsController.getAccountsByEmail);
 
 router.post(base_url +'/auth/signup', verifySuperToken, authorize([
@@ -41,7 +43,8 @@ router.post(base_url +'/auth/admin/setup', usersController.firstTimeSetup)
 
 router.get(base_url +"/accounts", verifyToken, authorize([
     roles.cashier, 
-    roles.admin
+    roles.admin,
+    roles.client
 ]), accountsController.getAccounts);
 
 router.get(base_url +"/accounts/:accountNumber", verifyToken, authorize([

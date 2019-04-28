@@ -15,7 +15,7 @@ const createTables = async () => {
 
     try {
         const res = await db.query(userTable);
-        console.log(res);
+        //console.log(res);
     } catch(error) {
         console.log(error);
     }
@@ -28,12 +28,13 @@ const createTables = async () => {
         owner INT NOT NULL,
         type VARCHAR(255) NOT NULL,
         status VARCHAR(255) NOT NULL,
-        balance FLOAT NOT NULL
+        balance FLOAT NOT NULL,
+        deletedat DATE NULL
     )`;
 
     try {
         const res = await db.query(accountTable);
-        console.log(res);
+        // console.log(res);
     } catch(error) {
         console.log(error);
     }
@@ -52,7 +53,7 @@ const createTables = async () => {
 
     try {
         const res = await db.query(transactionTable);
-        console.log(res);
+        // console.log(res);
     } catch(error) {
         console.log(error);
     }
@@ -62,16 +63,32 @@ const createTables = async () => {
 
 // Drop tables
 const dropTables = async () => {
-  const userTable = 'DROP TABLE IF EXISTS users';
+    const userTable = 'DROP TABLE IF EXISTS users';
     try {
         const res = await db.query(userTable);
-        console.log(res);
+        // console.log(res);
+    } catch(error) {
+        console.log(error);
+    }
+
+    const accountTable = 'DROP TABLE IF EXISTS accounts';
+    try {
+        const res = await db.query(accountTable);
+        // console.log(res);
+    } catch(error) {
+        console.log(error);
+    }
+
+    const transactionTable = 'DROP TABLE IF EXISTS transactions';
+    try {
+        const res = await db.query(transactionTable);
+        // console.log(res);
     } catch(error) {
         console.log(error);
     }
 }
 
 // export pool and createTables
-export { createTables, db };
+export { createTables, dropTables, db };
 
 require('make-runnable');
