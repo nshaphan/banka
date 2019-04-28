@@ -9,18 +9,29 @@ use(chaiHttp);
 
 const api_version = 'v1';
 const base_url = '/api/'+ api_version;
-var token = '';
 
-describe("POST /accounts", () => {
-    
-    before((done) => {
-        request(app)
+let adminToken = '';
+let clientToken = '';
+let cashier = '';
+
+let initialize = (done) => {
+    request(app)
         .post(base_url +'/auth/signin')
         .send({email: 'user@banka.com', password: '1234567@Bk'})
         .end((err, res) => {
-            token = res.body.data.token;
+            clientToken = res.body.data.token;
             done();
         });
+    
+}
+
+
+
+
+describe("Testing accounts", () => {
+    
+    before((done) => {
+        initialize(done);
     });
 
     var testAccount = bankaTest.accounts[0];
@@ -29,7 +40,7 @@ describe("POST /accounts", () => {
         
         request(app)
             .post(base_url +'/accounts')
-            .set('x-access-token', token)
+            .set('x-access-token', clientToken)
             .send({ type: 'current'})
             .end((err, res) => {
                 expect(res.status).to.eql(200);
@@ -75,6 +86,40 @@ describe("PATCH /account/<account-number>", () => {
 });
 
 describe("DELETE /accounts/<account-number>", () => {
+
+    before((done) => {
+        request(app)
+        .post(base_url +'/auth/signin')
+        .send({email: 'admin@banka.com', password: '1234567@Bk'})
+        .then((res) => {
+            token = res.body.data.token;
+        })
+        .then(done, done);
+    });
+
+    it("Should be able to delete account", (done) => {
+        request(app)
+            .delete(base_url +'/accounts/20183444095')
+            .set('x-access-token', token)
+            .then((res) => {
+                expect(res.status).to.eql(200);
+            })
+            .then(done, done);
+    });
+
+    it("Should be able to restore account", (done) => {
+        request(app)
+            .patch(base_url +'/accounts/20183444095/undelete')
+            .set('x-access-token', token)
+            .then((res) => {
+                expect(res.status).to.eql(200);
+            })
+            .then(done, done);
+    });
+
+});
+
+describe("GET /accounts", () => {
 
     before((done) => {
         request(app)
