@@ -1,28 +1,32 @@
 import db from '../helpers/queryHelper'
 import bcrypt from 'bcrypt'
 
+let users = [];
+let accounts = [];
+let result = [];
+
 /**
  * Insert multiple values in table
  * @param {String} query 
  * @param {Array} values 
  */
 const insert = async (query, values) => {
+    
     values.map(async (item) => {
         try {
             const { rows } = await db.query(query, item);
-            console.log(rows);
+            // console.log(rows);
+            result.push(rows[0]);
+            // console.log(result); 
         } catch(error) {
             console.log(error);
         }
     });
+    
+    // console.log(result);
 };
 
-/**
- * Initialize database with data
- * @returns void
- */
-const initializeDB = async () => {
-
+const initializeUsers = async () => {
     //password hash
     var passwordHash = bcrypt.hashSync('1234567@Bk', 10);
 
@@ -31,7 +35,7 @@ const initializeDB = async () => {
     users(email, firstname, lastname, password, type, isAdmin)
     VALUES($1, $2, $3, $4, $5, $6) returning *`
 
-    const users = [[
+    const usersValues = [[
             'admin@banka.com',
             'kwizera',
             'eric',
@@ -57,16 +61,19 @@ const initializeDB = async () => {
         ]];
     
     // Insert users into the database
-    await insert(userQuery, users);
+    await insert(userQuery, usersValues);
+    
+};
 
+const initializeAccounts = async () => {
     const accountQuery = `INSERT INTO 
     accounts(accountNumber, createdOn, owner, type, status, balance)
     VALUES($1, $2, $3, $4, $5, $6) returning *`;
 
-    const accounts = [[
+    const accountsValues = [[
             '20183444095',
             '12-05-2018',
-            8,
+            3,
             'current',
             'active',
             2000,
@@ -74,25 +81,28 @@ const initializeDB = async () => {
         [
             '20183444096',
             '12-05-2018',
-            8,
+            3,
             'current',
             'active',
             2000,
         ]];
     
     // insert accounts into the database
-    await insert(accountQuery, accounts);
+    let rows = await insert(accountQuery, accountsValues);
+    accounts = rows;
+};
 
+const initializeTransactions = async () => {
 
     const transactions = [[
-           '12-05-2018',
-            'debit',
-            '20183444095',
-            1,
-            3000,
-            5000,
-            2000
-        ]];
+        '12-05-2018',
+         'debit',
+         '20183444095',
+         2,
+         3000,
+         5000,
+         2000
+     ]];
 
     const transactionQuery = `INSERT INTO 
     transactions(createdOn, type, accountNumber, cashier, amount, oldBalance, newBalance)
@@ -100,9 +110,66 @@ const initializeDB = async () => {
 
     // insert transactions into the database
     await insert(transactionQuery, transactions);
-    
 }
 
-export { initializeDB, db, bcrypt };
+let resetUsers = async () => {
+    const userTable = 'TRUNCATE TABLE users';
+    try {
+        const res = await db.query(userTable);
+        // console.log(res);
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+let resetAccounts = async () => {
+    const accountTable = 'TRUNCATE TABLE accounts';
+    try {
+        const res = await db.query(accountTable);
+        // console.log(res);
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+let resetTransactions = async () => {
+    const transactionTable = 'TRUNCATE TABLE transactions';
+    try {
+        const res = await db.query(transactionTable);
+        //console.log(res);
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+/**
+ * Initialize database with data
+ * @returns void
+ */
+const initializeDB = async () => {   
+    initializeUsers();
+    initializeAccounts();
+    initializeTransactions();
+}
+
+const resetDB = async () => {
+    resetUsers();
+    resetAccounts();
+    resetTransactions();
+}
+
+
+export { 
+    db, 
+    bcrypt, 
+    resetUsers,
+    resetAccounts,
+    resetTransactions,
+    initializeUsers,
+    initializeAccounts,
+    initializeTransactions,
+    initializeDB,
+    resetDB 
+ };
 
 require('make-runnable');

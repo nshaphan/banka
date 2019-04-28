@@ -26,7 +26,7 @@ class AccountsController {
             accountsQuery +=" WHERE owner = $1 ";
             values.push(currentUser.id);
         }
-        console.log(accountsQuery, values);
+        // console.log(accountsQuery, values);
         try {
             // query database for accounts
             if(values.length <= 0) {
@@ -347,7 +347,7 @@ class AccountsController {
             accountsQuery +=` AND ( users.email = $1 AND users.id = $2 ) `;
             values.push(currentUser.id);
         } else {
-            accountsQuery + ` users.email = $1`;
+            accountsQuery += ` AND users.email = $1`;
         }
 
         try {
