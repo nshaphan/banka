@@ -357,7 +357,7 @@
         }
       }
     },
-    "/account/{accountNumber}": {
+    "/accounts/{accountNumber}": {
       "patch": {
         "tags": [
           "Accounts"
@@ -496,7 +496,7 @@
         }
       }
     },
-    "/account/{accountNumber}/transactions": {
+    "/accounts/{accountNumber}/transactions": {
       "get": {
         "tags": [
           "Accounts",
