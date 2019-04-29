@@ -357,7 +357,7 @@
         }
       }
     },
-    "/accounts/{accountNumber}": {
+    "/account/{accountNumber}": {
       "patch": {
         "tags": [
           "Accounts"
@@ -412,7 +412,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/accounts/{accountNumber}": {
       "delete": {
         "tags": [
           "Accounts"
