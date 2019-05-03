@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Banka is a light-weight core banking application that powers banking operations like account
+    creation, customer deposit and withdrawals.">
+	<meta name="keywords" content="Banking, Money, bank account">
+    <title>Banka | Login</title>
+    <link rel="shortcut icon" type="image/png" href="./assets/favicon-32x32.png"/>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <header>
+        <div class="container">
+            <div id="brand">
+                <h1>
+                    <span class="app-name">Banka</span>
+                </h1>
+            </div>
+            <nav>
+                <ul>
+                    <a href="">Services</a>
+                    <a href="user-signup.html">Sign Up</a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+   
+    <section id="content">
+        <div id="cta">
+            <div id="cta-content">
+                <h1 class="cta-head">Welcome to Banka</h1>
+                <br>
+                <p class="cta-subhead">
+                    We serve you with the leading and outstanding banking solutions on the globe
+                </p>
+                <br>
+                <p>
+                    <a href="user-signup.html"><button class="btn-cta get-started">Get Started</button></a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="column cta-left">
+                    <h3>Enjoy our services</h3>                    
+                    <ol class="services" type="circle">
+                        <li>Create an account for users</li>
+                        <li>Keep track of your transactions</li>
+                        <li>Deposit and withdraw for agents</li>                                                
+                    </ol>
+                </div>
+                <div class="column cta-right">
+                    <div class="form-acc card">
+                        <div class="content">
+                            <form action="user-dashboard.html" class="form">
+                                <h3>USER LOGIN</h3>
+                                <hr>
+                                
+                                <div class="field">
+                                    <label for="email">Email</label>
+                                    <input type="text" id="txt-email" placeholder="Enter Email" name="email" required>
+                                </div>
+                                <div class="field">
+                                    <label for="psw">Password:</label>
+                                    <input type="text" id="txt-pass" placeholder="Enter Password" value="" name="psw" required>     
+                                </div>
+                                
+                                <br>
+                                <div class="clearfix">
+                                    <button type="submit" class="button signupbtn" id="btn-login">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer l-box is-center">
+            Developed by Shaphan
+        </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Banka is a light-weight core banking application that powers banking operations like account
+    creation, customer deposit and withdrawals.">
+	<meta name="keywords" content="Banking, Money, bank account">
+    <title>Banka | New Transaction</title>
+    <link rel="shortcut icon" type="image/png" href="./assets/favicon-32x32.png"/>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <header>
+        <div class="container">
+            <div id="brand">
+                <h1>
+                    <span class="app-name">Banka</span>
+                </h1>
+            </div>
+            <nav>
+                <ul>
+                    <a href="bank-transactions.html">Transactions</a>
+                    <a href="bank-accounts.html">Accounts</a>
+                    <a href="bank-manage-users.html">Manage</a>
+                    <a href="index.html">Login</a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section id="content">
+        <div class="row">
+            <div class="column left">
+                <ul class="accounts">
+                    <li class="list-header">Frequent Accounts</li>
+                    <li><a href="">#20183444094</a></li>
+                    <li><a href="">#20173285949</a></li>
+                    <li><a href="">#20198384859</a></li>
+                </ul>
+            </div>
+
+            <div class="column right">
+                <div class="form-acc card">
+                    <div class="content">
+                        <form action="" class="form">
+                            <h1>New Transaction</h1>
+                            <div class="field"> 
+                                <label for="accnbr">Account Number</label>
+                                <input type="text" placeholder="Search Account Number" name="accnbr" required>
+                            </div>
+                            <div class="field">
+                                <label for="accbal">Amount</label>
+                                <input type="text" placeholder="Enter Opening Balance" name="accbal" required>
+                            </div>
+                            <div class="field">
+                                <label for="comment">Comment</label>
+                                <textarea name="comment" placeholder="transaction description"></textarea>
+                            </div>
+                            <div class="field">
+                                <label for="acctype"><b>Transaction Type</b></label>
+                                <br>
+                                <div class="radio-group">
+                                    <b>Debit : </b><input type="radio" name="acctype" value="curr">
+                                    <b>Credit : </b><input type="radio" name="acctype" value="save">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="clearfix">
+                                <button type="submit" class="button signupbtn">Confirm Transaction</button>
+                            </div>
+                        </form>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    <footer>
+        <div class="footer l-box is-center">
+            Developed by Shaphan
+        </div>
+    </footer>
+</html>
