@@ -14,7 +14,7 @@ const login = () => {
                     let data = res.data;
                     setCookie("access-token", data.token, 1);
                     if (checkCookie('access-token')) {
-                        //window.location = 'user-dashboard.html'
+                        window.location = 'user-dashboard.html'
                     }
                 break;
             }
