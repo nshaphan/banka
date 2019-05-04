@@ -1,13 +1,19 @@
 const baseUrl = 'http://localhost:3000/api/v1';
 
 const postRequest = async (url, data, token = null) => {
+
+    let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+    if (token != null) {
+        headers.append('X-access-token', token);
+    }
+
     let response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            'X-access-token': token
-        }),
+        headers: headers
     });
 
     let json = await response.json();
