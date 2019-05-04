@@ -47,10 +47,10 @@
     "compile": "./node_modules/.bin/babel ./api/src -d ./build",
     "copy": "cp ./api/src/banka-api-docs.json ./build",
     "build": "npm run create && npm run clean && npm run compile && npm run copy",
-    "create": "NODE_ENV=staging babel-node -r ./node_modules/dotenv/config ./api/src/database/db createTables",
-    "dropTables": "NODE_ENV=staging babel-node -r ./node_modules/dotenv/config ./api/src/database/db dropTables",
-    "seedDB": "NODE_ENV=staging babel-node -r ./node_modules/dotenv/config ./api/src/database/seeds initializeDB",
-    "resetDB": "NODE_ENV=staging npm run dropTables && npm run create",
+    "create": "SET NODE_ENV=development&&babel-node -r ./node_modules/dotenv/config ./api/src/database/db createTables",
+    "dropTables": "SET NODE_ENV=development&&babel-node -r ./node_modules/dotenv/config ./api/src/database/db dropTables",
+    "seedDB": "SET NODE_ENV=development&&babel-node -r ./node_modules/dotenv/config ./api/src/database/seeds initializeDB",
+    "resetDB": "SET NODE_ENV=development&&npm run dropTables&&npm run create",
     "start": "NODE_ENV=production node -r ./node_modules/dotenv/config build/index"
   },
   "repository": {

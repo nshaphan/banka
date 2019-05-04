@@ -164,7 +164,6 @@ class UsersController {
         // find user with provided credentials 
         const userQuery = "SELECT * FROM users WHERE email = $1"; 
         
-        console.log(userQuery);
         let user = {}
         try {
             let { rows, rowCount } = await db.query(userQuery, [email]);
@@ -212,7 +211,9 @@ class UsersController {
                 id: user.id,
                 firstName: user.firstname,
                 lastName: user.lastname,
-                email: user.email
+                email: user.email,
+                type: user.type,
+                isadmin: user.isadmin
             }
         };
 
