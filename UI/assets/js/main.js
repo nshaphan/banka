@@ -87,3 +87,12 @@ const checkCookie = (cname) => {
         return false;
     }
 }
+
+const isLoggedIn = () => {
+    if (!checkCookie('access-token')) {
+        alert('login first');
+        window.location = 'index.html';
+    }
+}
+
+const getAccessToken = () => getCookie('access-token');
