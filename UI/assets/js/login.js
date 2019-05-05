@@ -11,10 +11,18 @@ const login = () => {
                     alert(res.message);
                 break;
                 case 200:
-                    let data = res.data;
-                    setCookie("access-token", data.token, 1);
-                    if (checkCookie('access-token')) {
-                        window.location = 'user-dashboard.html'
+                    let user = res.data;
+                    setCookie("access-token", user.token, 1);
+                    isLoggedIn();
+
+                    switch(user.role) {
+                        case 'client':
+                            window.location = 'user-dashboard.html';
+                        break;
+                        case 'cashier':
+                        case 'admin':
+                            window.location = 'bank-accounts.html'
+                        break;
                     }
                 break;
             }
