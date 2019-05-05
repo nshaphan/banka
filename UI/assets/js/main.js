@@ -21,6 +21,36 @@ const postRequest = async (url, data, token = null) => {
     
 }
 
+const serialize = (data) => {
+    let queryString = Object.keys(data)
+                        .map(key => encodeURIComponent(key) +'='+ encodeURIComponent(data[key]))
+                        .join('&');
+    return queryString;
+}
+
+const getRequest = async (url, data = null, token = null) => {
+
+    let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+    if (token != null) {
+        headers.append('X-access-token', token);
+    }
+
+    if (data != null) {
+        url += '?'+ serialize(data); 
+    }
+
+    let response = await fetch(url, {
+        method: 'GET',
+        headers: headers
+    });
+
+    let json = await response.json();
+    return json;
+}
+
 const setCookie = (cname, cvalue, exdays) => {
     let d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
