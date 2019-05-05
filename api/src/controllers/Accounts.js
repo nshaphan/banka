@@ -28,7 +28,11 @@ class AccountsController {
             accountsQuery +=` WHERE users.id = accounts.owner 
                                 AND  owner = $1`;
             values.push(currentUser.id);
+        } else {
+            accountsQuery = accountsQuery + ` WHERE users.id = accounts.owner`;
         }
+
+
         // console.log(accountsQuery, values);
         try {
             // query database for accounts
