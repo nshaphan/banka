@@ -151,7 +151,8 @@ class UsersController {
                 id: result.id,
                 firstname: result.firstname,
                 lastname: result.lastname,
-                email: result.email
+                email: result.email,
+                role: role
             }
         }
 
