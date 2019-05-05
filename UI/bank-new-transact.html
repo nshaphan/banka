@@ -9,6 +9,9 @@
     <title>Banka | New Transaction</title>
     <link rel="shortcut icon" type="image/png" href="./assets/favicon-32x32.png"/>
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="./assets/js/main.js"></script>
+    <script type="text/javascript" src="./assets/js/transactions.js"></script>
+    <script type="text/javascript" src="./assets/js/bank-new-transact.js"></script>
   </head>
   <body>
     <header>
@@ -46,27 +49,27 @@
                             <h1>New Transaction</h1>
                             <div class="field"> 
                                 <label for="accnbr">Account Number</label>
-                                <input type="text" placeholder="Search Account Number" name="accnbr" required>
+                                <input type="text" placeholder="Search Account Number" id="account-number" name="accnbr" required>
                             </div>
                             <div class="field">
                                 <label for="accbal">Amount</label>
-                                <input type="text" placeholder="Enter Opening Balance" name="accbal" required>
+                                <input type="text" placeholder="Enter Opening Balance" id="amount" name="amount" required>
                             </div>
                             <div class="field">
                                 <label for="comment">Comment</label>
-                                <textarea name="comment" placeholder="transaction description"></textarea>
+                                <textarea name="comment" id="comment" placeholder="transaction description"></textarea>
                             </div>
                             <div class="field">
-                                <label for="acctype"><b>Transaction Type</b></label>
+                                <label for="trtype"><b>Transaction Type</b></label>
                                 <br>
                                 <div class="radio-group">
-                                    <b>Debit : </b><input type="radio" name="acctype" value="curr">
-                                    <b>Credit : </b><input type="radio" name="acctype" value="save">
+                                    <b>Debit : </b><input type="radio" id="rdio-debit" checked="" name="trtype" value="Debit">
+                                    <b>Credit : </b><input type="radio" id="rdio-credit" name="trtype" value="Credit">
                                 </div>
                             </div>
                             <br>
                             <div class="clearfix">
-                                <button type="submit" class="button signupbtn">Confirm Transaction</button>
+                                <button type="submit" class="button" id="new-transact">Confirm Transaction</button>
                             </div>
                         </form>
                     </div>  
