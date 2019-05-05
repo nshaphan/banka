@@ -214,7 +214,8 @@ class UsersController {
                 lastName: user.lastname,
                 email: user.email,
                 type: user.type,
-                isadmin: user.isadmin
+                isadmin: user.isadmin,
+                role: role
             }
         };
 
