@@ -9,6 +9,9 @@
     <title>Banka | Bank Account Creation</title>
     <link rel="shortcut icon" type="image/png" href="./assets/favicon-32x32.png"/>
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="./assets/js/main.js"></script>
+    <script type="text/javascript" src="./assets/js/accounts.js"></script>
+    <script type="text/javascript" src="./assets/js/account-create.js"></script>
   </head>
   <body>
     <header>
@@ -31,11 +34,9 @@
     <section id="content">
         <div class="row">
             <div class="column left">
-                <ul class="accounts">
+                <ul class="accounts" id="user-accounts">
                     <li class="list-header">All Accounts</li>
-                    <li><a href="">#20183444094</a></li>
-                    <li><a href="">#20173285949</a></li>
-                    <li><a href="">#20198384859</a></li>
+                    
                 </ul>
                 <br><br>
                 <div class="container">
@@ -65,15 +66,15 @@
                                 <label for="acctype">Account Type</label>
                                 <br><br>
                                 <div class="radio-group">
-                                    <b> Current Account: </b><input type="radio" name="acctype" value="curr">
-                                    <b>Saving Account: </b><input type="radio" name="acctype" value="save">
+                                    <b> Current Account: </b><input type="radio" id="rdio-curr" name="acctype" value="current">
+                                    <b>Saving Account: </b><input type="radio" id="rdio-save" name="acctype" value="savings">
                                 </div>
                             </div>
                             
                             <p>By creating an account you agree to our <a href="#" style="color:#64dd17">Terms & Privacy</a>.</p>
                         
                             <div class="clearfix">
-                                <button type="submit" class="button signupbtn">Create Account</button>
+                                <button type="submit" class="button" id="btn-acc-create">Create Account</button>
                             </div>
                         </form>
                     </div>
