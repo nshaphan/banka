@@ -18,10 +18,12 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
         // display default account info
 		let account = res.data[0];
+		let color = account.status == 'dormant'?'red':'green';
+
 		let accountInfo = `<h3>${account.firstname} ${account.lastname}</h3>
                    <h4>A/C: ${account.accountnumber}</h4>
                    <span>${account.type} Account | since ${new Date(account.createdon).toDateString()}</span>
-                   | <span style="color: green;">${account.status}</span>`;
+                   | <span style="color: ${color};">${account.status}</span>`;
 
         // update account info details
         let divInfo = document.getElementById('account-info');
