@@ -9,6 +9,8 @@
     <title>Banka | Login</title>
     <link rel="shortcut icon" type="image/png" href="./assets/favicon-32x32.png"/>
     <link rel="stylesheet" href="css/style.css">
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/login.js"></script>
   </head>
   <body>
     <header>
@@ -55,22 +57,22 @@
                 <div class="column cta-right">
                     <div class="form-acc card">
                         <div class="content">
-                            <form action="user-dashboard.html" class="form">
+                            <form action="" class="form">
                                 <h3>USER LOGIN</h3>
                                 <hr>
                                 
                                 <div class="field">
                                     <label for="email">Email</label>
-                                    <input type="text" placeholder="Enter Email" name="email" required>
+                                    <input type="text" id="txt-email" placeholder="Enter Email" name="email" required>
                                 </div>
                                 <div class="field">
                                     <label for="psw">Password:</label>
-                                    <input type="text" placeholder="Enter Password" value="" name="psw" required>     
+                                    <input type="text" id="txt-pass" placeholder="Enter Password" value="" name="psw" required>     
                                 </div>
                                 
                                 <br>
                                 <div class="clearfix">
-                                    <button type="submit" class="button signupbtn">Login</button>
+                                    <button type="submit" class="button signupbtn" id="login">Login</button>
                                 </div>
                             </form>
                         </div>

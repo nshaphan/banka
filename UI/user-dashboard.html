@@ -9,6 +9,10 @@
     <title>Banka | Account Profile</title>
     <link rel="shortcut icon" type="image/png" href="./assets/favicon-32x32.png"/>
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="./assets/js/main.js"></script>
+    <script type="text/javascript" src="./assets/js/accounts.js"></script>
+    <script type="text/javascript" src="./assets/js/transactions.js"></script>
+    <script type="text/javascript" src="./assets/js/user-dashboard.js"></script>
   </head>
   <body>
     <header>
@@ -31,11 +35,8 @@
     <section id="content">
         <div class="row">
             <div class="column left">
-                <ul class="accounts">
+                <ul class="accounts" id="user-accounts">
                     <li class="list-header">All Accounts</li>
-                    <li><a href="">#20183444094</a></li>
-                    <li><a href="">#20173285949</a></li>
-                    <li><a href="">#20198384859</a></li>
                 </ul>
                 <br><br>
                 <div class="btn-container">
@@ -51,15 +52,12 @@
                             <div class="row">
                                 <div class="column right">
                                     <div id="account-info">
-                                        <h3>Shaphan</h3>
-                                        <h4>A/C: 20183444094</h4>
-                                        <span>Saving Account | since May, 16, 2018</span>
-                                        | <span style="color: green;">Active</span> 
+                                       <b>loading...</b>
                                     </div>
                                 </div>
             
                                 <div class="column left">
-                                    <div><b>Bal: $5, 915</b></div>
+                                    <div><span id="bal"><b>loading...</b></div>
                                 </div>
                             </div>
                     </div>
@@ -69,52 +67,12 @@
                     <h1>Transaction History</h1>
                     <hr>
                     <div class="transactions">
-                        <ul class="transaction-list">
+                        <ul class="transaction-list" id="transaction-list">
                             <li>
                                 <div class="card">
-                                    <span class="tr-type-green">+ $200</span><br>
-                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sold telephone</span><br>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $5, 915</span>
-                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 05, 2019 12:00</span>
-                                </div>
-                                
-                            </li>
-                            <li>
-                                <div class="card">
-                                    <span class="tr-type-green">+ $900</span><br>
-                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interest on savings</span><br>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $5, 715</span>
-                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 12, 2019 12:00</span>
+                                    <h5>Loading...</h5>
                                 </div>
                             </li>
-
-                            <li>
-                                <div class="card">
-                                    <span class="tr-type-red">- $80</span><br>
-                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paid Internet</span><br>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $4, 815</span>
-                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 12, 2019 12:00</span>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="card">
-                                    <span class="tr-type-red">- $5</span><br>
-                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Annual account maintenance fee</span><br>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $4, 895</span>
-                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;Feberuary, 12, 2019 12:00</span>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="card">
-                                    <span class="tr-type-green">+ $2, 000</span><br>
-                                    <span class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Salary</span><br>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Balance:</b> $4, 900</span>
-                                    <span style="color:grey">&nbsp;&nbsp;&nbsp;&nbsp;March, 12, 2019 12:00</span>
-                                </div>
-                            </li>
-                            
                         </ul>
                         <div class="container">
                             <br>
