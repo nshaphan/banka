@@ -9,6 +9,8 @@ const setUrl = () => {
     console.log(baseUrl);
 }
 
+setUrl();
+
 const postRequest = async (url, data, token = null) => {
 
     let headers = new Headers({
