@@ -23,6 +23,7 @@ const postRequest = async (url, data, token = null) => {
 
     let response = await fetch(url, {
         method: 'POST',
+        mode: 'no-cors',
         body: JSON.stringify(data),
         headers: headers
     });
@@ -55,6 +56,7 @@ const getRequest = async (url, data = null, token = null) => {
 
     let response = await fetch(url, {
         method: 'GET',
+        mode: 'no-cors',
         headers: headers
     });
 
