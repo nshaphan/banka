@@ -1,4 +1,13 @@
-const baseUrl = 'http://localhost:3000/api/v1';
+let baseUrl = 'http://localhost:3000/api/v1';
+
+const setUrl = () {
+    let host = window.location.hostname
+    if (host) {
+        baseUrl = 'https://banka-ap.herokuapp.com/api/v1';
+    }
+
+    console.log(baseUrl);
+}
 
 const postRequest = async (url, data, token = null) => {
 
