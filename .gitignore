@@ -15,6 +15,7 @@ coverage
 # ignore build files
 build
 demos
+dist
 
 .env
 

@@ -151,7 +151,8 @@ class UsersController {
                 id: result.id,
                 firstname: result.firstname,
                 lastname: result.lastname,
-                email: result.email
+                email: result.email,
+                role: role
             }
         }
 
@@ -211,7 +212,10 @@ class UsersController {
                 id: user.id,
                 firstName: user.firstname,
                 lastName: user.lastname,
-                email: user.email
+                email: user.email,
+                type: user.type,
+                isadmin: user.isadmin,
+                role: role
             }
         };
 

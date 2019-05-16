@@ -9,11 +9,14 @@ class Transaction {
      */
 
     async getTransactions(req, res) { 
-        let transactionsQuery = "SELECT * FROM transactions";
+        let transactionsQuery = `SELECT transactions.*, users.firstname, users.lastname 
+            FROM transactions, users
+            WHERE transactions.cashier = users.id`;
         
         try {
             // query database for transactions
             const { rows, rowCount } = await db.query(transactionsQuery);
+
 
             return res.status(200).send({ 
                 status: 200,

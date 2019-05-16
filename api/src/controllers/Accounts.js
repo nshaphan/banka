@@ -12,20 +12,27 @@ class AccountsController {
         let currentUser = req.body.user;
 
         let values =[];
-        let accountsQuery = "SELECT * FROM accounts";
+        let accountsQuery = "SELECT accounts.*, users.firstname, users.lastname FROM accounts, users";
         let { status } = req.query;
 
         if(status && currentUser.role == 'client') {
-            accountsQuery = accountsQuery + " WHERE status = $1 AND owner = $2";
+            accountsQuery = accountsQuery + ` WHERE users.id = accounts.owner 
+                                        AND accounts.status = $1 AND accounts.owner = $2`;
             values.push(status);
             values.push(currentUser.id);
         } else if (status) {
-            accountsQuery = accountsQuery + " WHERE status = $1 ";
+            accountsQuery = accountsQuery + ` WHERE users.id = accounts.owner 
+                                        AND accounts.status = $1`;
             values.push(status);
         } else if(currentUser.role == 'client') {
-            accountsQuery +=" WHERE owner = $1 ";
+            accountsQuery +=` WHERE users.id = accounts.owner 
+                                AND  owner = $1`;
             values.push(currentUser.id);
+        } else {
+            accountsQuery = accountsQuery + ` WHERE users.id = accounts.owner`;
         }
+
+
         // console.log(accountsQuery, values);
         try {
             // query database for accounts
@@ -43,8 +50,7 @@ class AccountsController {
                     rows: rowCount,
                     data: rows   
                 });
-            }
-            
+            }  
             
         } catch(error) {
             console.log(error);
@@ -380,7 +386,7 @@ class AccountsController {
      */
     async accountDetails(req, res) {
         let currentUser = req.body.user;
-        let accountsQuery = `SELECT * FROM accounts WHERE accountNumber = $1` ;
+        let accountsQuery = `SELECT accounts.*, users.firstname, users.lastname FROM accounts,users WHERE accountNumber = $1` ;
 
         const { accountNumber } = req.params;
         const values = [
