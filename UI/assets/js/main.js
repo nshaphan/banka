@@ -1,6 +1,6 @@
 let baseUrl = 'http://localhost:3000/api/v1';
 
-const setUrl = () {
+const setUrl = () => {
     let host = window.location.hostname
     if (host) {
         baseUrl = 'https://banka-ap.herokuapp.com/api/v1';
